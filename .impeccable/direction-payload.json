@@ -1,0 +1,52 @@
+{
+  "title": "Pilih dunia visual — Landing Page web-misi",
+  "question": "Roll menugaskan 'Grup Chat WhatsApp/Telegram'. Pertahankan, ambil alternatif, atau re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Grup Chat WhatsApp/Telegram",
+      "kicker": "HASIL ROLL",
+      "lineage": "Budaya grup WA/Telegram Indonesia — tempat peluang cuan & link referral biasanya beredar",
+      "thesis": "Tawaran reward datang seperti peluang asli biasanya datang: sebagai pesan di grup yang dipercaya, bukan landing page jualan.",
+      "palette": ["#F4F1EA", "#1F6F5C", "#B9752D", "#232323"],
+      "materials": ["bubble chat", "centang biru/abu (read receipt)", "label 'diteruskan'", "ritme timestamp"],
+      "viewport": "Halaman dibuka sebagai thread chat yang ter-scroll, bubble demi bubble mengungkap tawaran, berhenti di pesan yang di-pin berisi CTA daftar + cuplikan asli artikel Secangkir Cerita yang diteruskan.",
+      "risk": "Terasa gimmick kalau meniru chrome WhatsApp secara literal alih-alih ritual grupnya sendiri (forward, centang, pesan di-pin).",
+      "case": "Direction yang ditugaskan roll — familiar buat hampir semua pengguna internet Indonesia, dan struktur chat (bubble, centang, forward) langsung punya makna: centang = misi terverifikasi, forward = referral."
+    },
+    {
+      "id": "challenger-multiplane-cel",
+      "label": "Multiplane Cel-Animation Dawn",
+      "kicker": "CHALLENGER 1",
+      "lineage": "Animasi cel berlapis — kamera menembus kabut hutan menuju pondok bercahaya",
+      "thesis": "Perjalanan menuju reward digambarkan sebagai kedalaman lapis demi lapis, dari misi awal ke cahaya di ujung bulan.",
+      "case": "Fuses poorly: indah untuk metafora perjalanan, tapi tidak punya kosakata alami untuk checklist misi, submit bukti, atau status verifikasi admin — tiap layar tugas jadi harus mengarang UI di luar tata bahasa sumbernya, dan aset lukisan berlapis mahal diproduksi untuk proyek solo-admin.",
+      "hero": "https://impeccable.style/worlds/cards/cinema-cinematography-editing-multiplane-cel-dawn-hero.webp"
+    },
+    {
+      "id": "challenger-doujin-catalog",
+      "label": "Convention Circle Catalog",
+      "kicker": "CHALLENGER 2",
+      "lineage": "Katalog event doujin di kertas koran — ribuan thumbnail kecil bernomor tabel",
+      "thesis": "Setiap misi jadi 'entri katalog' bernomor kode, dengan rute yang bisa direncanakan seperti merencanakan kunjungan booth.",
+      "case": "Fuses cleanly untuk grid daftar misi itu sendiri — thumbnail+kode terasa alami sebagai katalog misi — tapi registernya condong ke audiens penggemar komik/anime yang niche, lebih lemah dari grup WA/Telegram untuk membangun kepercayaan publik luas."
+    },
+    {
+      "id": "challenger-onebit-desktop",
+      "label": "One-Bit Desktop (Classic Mac)",
+      "kicker": "CHALLENGER 3",
+      "lineage": "Desktop monokrom era awal komputer personal — jendela, folder, checkmark",
+      "thesis": "Status misi selesai/belum ditandai selugas checkmark dan window chrome sistem operasi klasik.",
+      "case": "Checkmark dan window chrome cocok secara mekanik untuk status misi, tapi referensi desktop Mac 1980-an asing bagi audiens massal Indonesia yang disasar brief ini — terasa keren buat kalangan teknis, bukan tepercaya buat pengunjung umum yang cari 'uang jajan'.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-one-bit-desktop-hero.webp"
+    }
+  ],
+  "reroll": true,
+  "canon": true,
+  "canonCard": {
+    "label": "Standar kategori",
+    "thesis": "Template 'aplikasi penghasil uang' yang sudah lazim: hero gradasi neon, tombol CTA raksasa, counter member palsu, countdown timer, foto stok uang tunai.",
+    "viewport": "Hero gradasi mencolok, tombol 'Gabung Sekarang!' besar, angka penghitung & countdown, foto stok uang."
+  },
+  "steer": true
+}

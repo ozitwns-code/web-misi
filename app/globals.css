@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #ece7db;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(36, 28, 21, 0.055) 1px, transparent 0);
+    background-size: 22px 22px;
+    color: #241c15;
+  }
+
+  ::selection {
+    background: #176d5d;
+    color: #f4f1ea;
+  }
+}
+
+@keyframes fade-hold {
+  0% {
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

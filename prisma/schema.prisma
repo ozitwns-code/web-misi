@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                    String   @id @default(cuid())
+  nama                  String
+  no_wa                 String   @unique
+  password_hash         String
+  kode_referral_sendiri String   @unique
+  direferensikan_oleh   String?
+  saldo_reward          Int      @default(0)
+  tanggal_daftar        DateTime @default(now())
+  ip_daftar             String?
+
+  referrer   User?  @relation("Referrals", fields: [direferensikan_oleh], references: [id])
+  referrals  User[] @relation("Referrals")
+
+  progress_misi ProgressMisi[]
+
+  referral_log_pengundang ReferralLog[] @relation("Pengundang")
+  referral_log_baru       ReferralLog?  @relation("UserBaru")
+
+  pencairan_requests PencairanRequest[]
+}
+
+model Misi {
+  id                 String  @id @default(cuid())
+  judul              String
+  deskripsi          String
+  nominal_reward     Int
+  tipe               String
+  aktif              Boolean @default(true)
+  target_url         String?
+  perlu_survei       Boolean @default(false)
+  survei_pertanyaan  String?
+
+  progress_misi ProgressMisi[]
+}
+
+model ProgressMisi {
+  id              String    @id @default(cuid())
+  user_id         String
+  misi_id         String
+  status          String    @default("belum")
+  jawaban_survei  String?
+  tanggal_mulai   DateTime?
+  tanggal_selesai DateTime?
+
+  user User @relation(fields: [user_id], references: [id])
+  misi Misi @relation(fields: [misi_id], references: [id])
+
+  @@unique([user_id, misi_id])
+}
+
+model ReferralLog {
+  id                 String   @id @default(cuid())
+  user_id_pengundang String
+  user_id_baru       String   @unique
+  nominal_didapat    Int
+  status             String   @default("approved")
+  created_at         DateTime @default(now())
+
+  pengundang User @relation("Pengundang", fields: [user_id_pengundang], references: [id])
+  user_baru  User @relation("UserBaru", fields: [user_id_baru], references: [id])
+}
+
+model AdminLog {
+  id         String   @id @default(cuid())
+  aksi       String
+  keterangan String
+  created_at DateTime @default(now())
+}
+
+model PencairanRequest {
+  id               String    @id @default(cuid())
+  user_id          String
+  jumlah           Int
+  status           String    @default("diminta")
+  tanggal_diminta  DateTime  @default(now())
+  tanggal_diproses DateTime?
+  tanggal_selesai  DateTime?
+
+  user User @relation(fields: [user_id], references: [id])
+}
