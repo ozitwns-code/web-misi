@@ -3,6 +3,7 @@ import {
   ArrowRight,
   BookOpen,
   CheckDouble,
+  ClipboardList,
   CoffeeMark,
   HandCoins,
   ShareNodes,
@@ -113,14 +114,11 @@ export default function Home() {
         <section className="border-y border-ink/[0.06] bg-bubble/60 px-5 py-14">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-balance text-3xl font-extrabold leading-tight text-ink sm:text-4xl">
-              Kerjain misi ringan, kumpulkan reward tanpa batas, sambil ikut
-              cerita di Secangkir Cerita.
+              Kerjain misi ringan, reward tanpa batas langsung masuk saldo.
             </h1>
             <p className="mx-auto mt-4 max-w-[60ch] text-balance text-[1.05rem] leading-relaxed text-ink-soft">
-              Siapa saja boleh daftar. Tandai misi selesai, saldo langsung
-              nambah. Begitu saldo minimal Rp200.000, ajukan pencairan —
-              admin transfer manual ke rekeningmu, bukan lewat aplikasi
-              pembayaran otomatis.
+              Siapa saja boleh daftar dan langsung mulai. Begitu saldo minimal
+              Rp200.000, ajukan pencairan ke rekening atau e-wallet kamu.
             </p>
           </div>
         </section>
@@ -129,7 +127,7 @@ export default function Home() {
         <section id="cara-kerja" className="scroll-mt-20 px-5 py-20">
           <div className="mx-auto max-w-2xl">
             <h2 className="text-2xl font-extrabold text-ink sm:text-3xl">
-              Tiga jenis misi yang bisa kamu kerjain
+              Jenis-jenis misi yang bisa kamu kerjain
             </h2>
             <p className="mt-3 max-w-[60ch] text-ink-soft">
               Semuanya berputar di sekitar blog Secangkir Cerita — baca ceritanya,
@@ -171,6 +169,20 @@ export default function Home() {
                   <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
                     Bagikan link ajakanmu. Begitu temanmu daftar lewat link
                     itu, kamu langsung dapet reward referral.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 px-5 py-6 sm:px-7">
+                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-light text-teal-dark">
+                  <ClipboardList className="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 className="font-bold text-ink">Isi survei singkat</h3>
+                  <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
+                    Jawab beberapa pertanyaan singkat, lalu lanjut ke link
+                    tujuannya. Isi jawaban dengan jujur, dan kalau ada batas
+                    waktu pengisian, pastikan diselesaikan sebelum waktunya
+                    habis.
                   </p>
                 </div>
               </div>
@@ -308,7 +320,7 @@ export default function Home() {
             >
               Secangkir Cerita
             </a>
-            . Pencairan reward diproses manual oleh admin.
+            . Pencairan reward langsung diproses ke rekening/e-wallet kamu.
           </p>
           <p className="text-xs text-ink-soft/70">
             © {new Date().getFullYear()} Rebahancuan. ·{" "}
