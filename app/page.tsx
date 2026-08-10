@@ -4,7 +4,6 @@ import {
   BookOpen,
   CheckDouble,
   CoffeeMark,
-  ForwardArrow,
   HandCoins,
   ShareNodes,
   ShieldCheck,
@@ -12,7 +11,6 @@ import {
 } from "@/components/icons";
 import {
   Bubble,
-  ForwardedTag,
   PinnedBubble,
   ReadTick,
   ThreadHeader,
@@ -28,17 +26,6 @@ const misiAwal = [
   { label: "Follow channel WhatsApp Secangkir Cerita", nominal: 8000 },
 ];
 const misiAwalSubtotal = misiAwal.reduce((sum, m) => sum + m.nominal, 0);
-
-const artikelAsli = [
-  {
-    judul: "Kenapa Ngobrol Sambil Ngopi Itu Menyembuhkan",
-    url: "https://secangkircerita-id.blogspot.com/2026/08/kenapa-ngobrol-sambil-ngopi-itu.html",
-  },
-  {
-    judul: "Cerita dari Warung Kopi Pinggir Jalan yang Selalu Ramai",
-    url: "https://secangkircerita-id.blogspot.com/2026/08/cerita-dari-warung-kopi-pinggir-jalan.html",
-  },
-];
 
 function rupiah(n: number) {
   return `Rp${n.toLocaleString("id-ID")}`;
@@ -89,17 +76,17 @@ export default function Home() {
                 bisa dicairkan.
               </Bubble>
               <Bubble delay={2700} className="motion-safe:opacity-0" time="09.42">
-                <ForwardedTag />
-                <p className="font-semibold">
-                  Kenapa Ngobrol Sambil Ngopi Itu Menyembuhkan
-                </p>
-                <p className="mt-1 text-sm text-ink-soft">
-                  secangkircerita-id.blogspot.com
-                </p>
-              </Bubble>
-              <Bubble delay={3300} className="motion-safe:opacity-0" time="09.43">
-                Misinya ya emang gitu — baca &amp; share tulisan-tulisan kayak ini
-                dari blog Secangkir Cerita.
+                Td abis baca{" "}
+                <a
+                  href="https://secangkircerita-id.blogspot.com/2026/08/kenapa-ngobrol-sambil-ngopi-itu.html"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
+                >
+                  tulisan soal ngobrol sambil ngopi
+                </a>{" "}
+                di Secangkir Cerita, related banget — salah satu misinya emang
+                baca &amp; share tulisan kayak gitu.
               </Bubble>
 
               <div id="mulai" className="w-full scroll-mt-24 pt-1.5">
@@ -246,50 +233,6 @@ export default function Home() {
             <div className="mt-4 flex items-center justify-between rounded-2xl bg-teal px-5 py-4 text-paper">
               <span className="font-bold">Minimal pencairan</span>
               <span className="text-lg font-extrabold">Rp200.000 per pengajuan</span>
-            </div>
-          </div>
-        </section>
-
-        {/* BLOG TIE-IN */}
-        <section className="px-5 py-20">
-          <div className="mx-auto max-w-thread">
-            <h2 className="text-2xl font-extrabold text-ink sm:text-3xl">
-              Misi kamu, bacaan beneran dari Secangkir Cerita
-            </h2>
-            <p className="mt-3 text-ink-soft">
-              Rebahancuan jalan bareng blog{" "}
-              <a
-                href="https://secangkircerita-id.blogspot.com"
-                target="_blank"
-                rel="noreferrer"
-                className="font-semibold text-teal-dark underline decoration-teal/40 underline-offset-2 hover:decoration-teal-dark"
-              >
-                Secangkir Cerita
-              </a>
-              . Beberapa misi baca &amp; share memang mengarah ke tulisan-tulisan
-              asli seperti ini:
-            </p>
-
-            <div className="mt-6 space-y-3">
-              {artikelAsli.map((artikel) => (
-                <a
-                  key={artikel.url}
-                  href={artikel.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-start gap-3 rounded-2xl bg-bubble px-5 py-4 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)] transition-colors hover:bg-teal-light/40"
-                >
-                  <ForwardArrow className="mt-1 h-4 w-4 shrink-0 text-ink-soft" />
-                  <span>
-                    <span className="block font-semibold text-ink group-hover:text-teal-dark">
-                      {artikel.judul}
-                    </span>
-                    <span className="mt-0.5 block text-sm text-ink-soft">
-                      secangkircerita-id.blogspot.com
-                    </span>
-                  </span>
-                </a>
-              ))}
             </div>
           </div>
         </section>
