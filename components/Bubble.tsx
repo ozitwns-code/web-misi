@@ -52,7 +52,7 @@ export function ThreadHeader() {
   return (
     <div className="mb-4 flex items-center gap-3 rounded-2xl bg-bubble/70 px-4 py-3 backdrop-blur-sm">
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber text-paper">
-        <SiteLogo className="h-5 w-5 object-contain" />
+        <SiteLogo className="h-5 w-5 object-cover" />
       </span>
       <div className="min-w-0 font-chat">
         <p className="truncate text-sm font-semibold text-ink">Secangkir Cerita</p>

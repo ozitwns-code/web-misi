@@ -47,7 +47,7 @@ export default function SyaratKetentuanPage() {
         <div className="mx-auto flex max-w-2xl items-center justify-between px-5 py-3.5">
           <Link href="/" className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-              <SiteLogo className="h-4 w-4 object-contain" />
+              <SiteLogo className="h-4 w-4 object-cover" />
             </span>
             <span className="text-[0.95rem] font-bold tracking-tight text-ink">
               Rebahancuan

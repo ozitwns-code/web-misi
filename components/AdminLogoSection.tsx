@@ -81,7 +81,7 @@ export function AdminLogoSection() {
           <img
             src={preview ?? `/api/site-asset/logo?v=${logoVersion}`}
             alt="Logo saat ini"
-            className="h-8 w-8 object-contain"
+            className="h-8 w-8 object-cover"
           />
         </span>
 

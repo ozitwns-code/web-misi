@@ -46,7 +46,7 @@ export default async function Home() {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-3.5">
           <a href="#top" className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-              <SiteLogo className="h-4 w-4 object-contain" />
+              <SiteLogo className="h-4 w-4 object-cover" />
             </span>
             <span className="text-[0.95rem] font-bold tracking-tight text-ink">
               {c["site.brand_name"]}
@@ -281,7 +281,7 @@ export default async function Home() {
       <footer className="border-t border-ink/[0.06] px-5 py-10">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 text-center">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-            <SiteLogo className="h-4 w-4 object-contain" />
+            <SiteLogo className="h-4 w-4 object-cover" />
           </span>
           <p className="text-sm text-ink-soft">{c["footer.text"]}</p>
           <p className="text-xs text-ink-soft/70">
