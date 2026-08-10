@@ -12,6 +12,7 @@ import {
 import { AdminMisiSection, type MisiAdmin } from "@/components/AdminMisiSection";
 import { AdminContentSection } from "@/components/AdminContentSection";
 import { AdminLogoSection } from "@/components/AdminLogoSection";
+import { AdminStatsSection, type AdminStats } from "@/components/AdminStatsSection";
 import { buildContentMap } from "@/lib/site-content";
 
 export const metadata = {
@@ -23,7 +24,18 @@ export default async function AdminPage() {
     redirect("/admin/login");
   }
 
-  const [referralLogs, pencairanDb, adminLogs, misiDb, siteContentDb] = await Promise.all([
+  const [
+    referralLogs,
+    pencairanDb,
+    adminLogs,
+    misiDb,
+    siteContentDb,
+    totalUser,
+    userSelesaiMisiRows,
+    totalMisiSelesai,
+    saldoTertahanAgg,
+    saldoDicairkanAgg,
+  ] = await Promise.all([
     prisma.referralLog.findMany({
       where: { status: "pending_review" },
       orderBy: { created_at: "asc" },
@@ -40,9 +52,29 @@ export default async function AdminPage() {
     prisma.adminLog.findMany({ orderBy: { created_at: "desc" }, take: 50 }),
     prisma.misi.findMany({ orderBy: { id: "asc" } }),
     prisma.siteContent.findMany(),
+    prisma.user.count(),
+    prisma.progressMisi.findMany({
+      where: { status: "selesai" },
+      select: { user_id: true },
+      distinct: ["user_id"],
+    }),
+    prisma.progressMisi.count({ where: { status: "selesai" } }),
+    prisma.user.aggregate({ _sum: { saldo_reward: true } }),
+    prisma.pencairanRequest.aggregate({
+      where: { status: "selesai" },
+      _sum: { jumlah: true },
+    }),
   ]);
 
   const contentMap = buildContentMap(siteContentDb);
+
+  const stats: AdminStats = {
+    totalUser,
+    totalUserAktifMisi: userSelesaiMisiRows.length,
+    totalMisiSelesai,
+    totalSaldoTertahan: saldoTertahanAgg._sum.saldo_reward ?? 0,
+    totalSaldoDicairkan: saldoDicairkanAgg._sum.jumlah ?? 0,
+  };
 
   const misiList: MisiAdmin[] = misiDb.map((m) => ({
     id: m.id,
@@ -95,10 +127,14 @@ export default async function AdminPage() {
       </header>
 
       <main className="mx-auto max-w-3xl px-5 py-8">
-        <AdminDashboardClient
-          pendingReferralsAwal={pendingReferrals}
-          pencairanAwal={pencairan}
-        />
+        <AdminStatsSection stats={stats} />
+
+        <div className="mt-10">
+          <AdminDashboardClient
+            pendingReferralsAwal={pendingReferrals}
+            pencairanAwal={pencairan}
+          />
+        </div>
 
         <AdminMisiSection misiListAwal={misiList} />
 
