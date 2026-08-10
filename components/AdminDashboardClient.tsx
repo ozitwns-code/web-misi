@@ -20,10 +20,19 @@ export type PencairanItem = {
   jumlah: number;
   status: "diminta" | "disetujui";
   tanggalDiminta: string;
+  metodePencairan: "bank" | "e_wallet";
+  namaPenyedia: string;
+  nomorTujuan: string;
+  namaPemilik: string;
 };
 
 function rupiah(n: number) {
   return `Rp${n.toLocaleString("id-ID")}`;
+}
+
+function tujuanPencairan(p: PencairanItem) {
+  const metode = p.metodePencairan === "bank" ? "Bank" : "E-wallet";
+  return `${metode} ${p.namaPenyedia} · ${p.nomorTujuan} a.n. ${p.namaPemilik}`;
 }
 
 function tanggalIndo(iso: string) {
@@ -130,6 +139,7 @@ export function AdminDashboardClient({
                   </div>
                   <span className="text-sm font-bold text-teal-dark">{rupiah(p.jumlah)}</span>
                 </div>
+                <p className="mt-1.5 text-sm text-ink-soft">{tujuanPencairan(p)}</p>
                 {errorKey === p.id && errorMessage && (
                   <p role="alert" className="mt-2 text-sm font-medium text-[#B34434]">
                     {errorMessage}
@@ -186,6 +196,7 @@ export function AdminDashboardClient({
                   <p className="text-sm text-ink-soft">
                     {p.noWa} · diajukan {tanggalIndo(p.tanggalDiminta)}
                   </p>
+                  <p className="mt-1 text-sm font-semibold text-ink">{tujuanPencairan(p)}</p>
                   {errorKey === p.id && errorMessage && (
                     <p role="alert" className="mt-1 text-sm font-medium text-[#B34434]">
                       {errorMessage}

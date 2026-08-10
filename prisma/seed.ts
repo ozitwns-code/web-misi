@@ -30,18 +30,31 @@ const misiSeed = [
   {
     judul: "Baca & komentar artikel terbaru di blog",
     deskripsi:
-      "Buka artikelnya, baca, tinggalkan komentar singkat, terus balik ke sini — misi otomatis selesai.",
+      "Isi survei singkat, lalu baca artikelnya dan tinggalkan komentar — misi otomatis selesai begitu kamu balik ke sini.",
     nominal_reward: 10000,
-    tipe: "baca",
+    tipe: "survei",
     target_url:
       "https://secangkircerita-id.blogspot.com/2026/08/kenapa-ngobrol-sambil-ngopi-itu.html",
+    perlu_survei: true,
+    survei_pertanyaan: JSON.stringify([
+      {
+        id: "q1",
+        text: "Seberapa sering kamu baca artikel di blog Secangkir Cerita?",
+        options: ["Sering", "Kadang-kadang", "Ini pertama kalinya"],
+      },
+      {
+        id: "q2",
+        text: "Topik tulisan seperti apa yang paling kamu suka?",
+        options: ["Cerita sehari-hari", "Ngopi & ngobrol", "Tips/opini"],
+      },
+    ]),
   },
   {
     judul: "Follow channel WhatsApp Secangkir Cerita",
     deskripsi:
       "Isi survei singkat, lalu join channel WhatsApp resmi kami — misi otomatis selesai begitu kamu balik ke sini.",
     nominal_reward: 8000,
-    tipe: "sosial",
+    tipe: "survei",
     target_url: "https://whatsapp.com/channel/0029VbDjpiqEFeXscAvXTU2E",
     perlu_survei: true,
     survei_pertanyaan: JSON.stringify([

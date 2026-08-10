@@ -21,6 +21,11 @@ model User {
   tanggal_daftar        DateTime @default(now())
   ip_daftar             String?
 
+  metode_pencairan String?
+  nama_penyedia    String?
+  nomor_tujuan     String?
+  nama_pemilik     String?
+
   referrer   User?  @relation("Referrals", fields: [direferensikan_oleh], references: [id])
   referrals  User[] @relation("Referrals")
 
@@ -88,6 +93,11 @@ model PencairanRequest {
   tanggal_diminta  DateTime  @default(now())
   tanggal_diproses DateTime?
   tanggal_selesai  DateTime?
+
+  metode_pencairan String
+  nama_penyedia    String
+  nomor_tujuan     String
+  nama_pemilik     String
 
   user User @relation(fields: [user_id], references: [id])
 }

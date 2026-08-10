@@ -42,7 +42,6 @@ export default function Home() {
             </span>
             <span className="text-[0.95rem] font-bold tracking-tight text-ink">
               Rebahancuan
-              <span className="font-medium text-ink-soft"> × Secangkir Cerita</span>
             </span>
           </a>
           <Link
@@ -127,7 +126,7 @@ export default function Home() {
         </section>
 
         {/* CARA KERJA */}
-        <section className="px-5 py-20">
+        <section id="cara-kerja" className="scroll-mt-20 px-5 py-20">
           <div className="mx-auto max-w-2xl">
             <h2 className="text-2xl font-extrabold text-ink sm:text-3xl">
               Tiga jenis misi yang bisa kamu kerjain
@@ -238,7 +237,7 @@ export default function Home() {
         </section>
 
         {/* FAQ / TRUST */}
-        <section className="border-y border-ink/[0.06] bg-bubble/60 px-5 py-20">
+        <section id="faq" className="scroll-mt-20 border-y border-ink/[0.06] bg-bubble/60 px-5 py-20">
           <div className="mx-auto max-w-thread">
             <div className="mb-7 flex items-center gap-2.5">
               <ShieldCheck className="h-6 w-6 text-teal-dark" />
@@ -312,7 +311,10 @@ export default function Home() {
             . Pencairan reward diproses manual oleh admin.
           </p>
           <p className="text-xs text-ink-soft/70">
-            © {new Date().getFullYear()} Rebahancuan.
+            © {new Date().getFullYear()} Rebahancuan. ·{" "}
+            <Link href="/syarat-ketentuan" className="underline decoration-ink/20 underline-offset-2 hover:decoration-ink/50">
+              Syarat &amp; Ketentuan
+            </Link>
           </p>
         </div>
       </footer>

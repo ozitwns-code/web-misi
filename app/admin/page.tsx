@@ -66,6 +66,10 @@ export default async function AdminPage() {
     jumlah: p.jumlah,
     status: p.status as "diminta" | "disetujui",
     tanggalDiminta: p.tanggal_diminta.toISOString(),
+    metodePencairan: p.metode_pencairan as "bank" | "e_wallet",
+    namaPenyedia: p.nama_penyedia,
+    nomorTujuan: p.nomor_tujuan,
+    namaPemilik: p.nama_pemilik,
   }));
 
   return (

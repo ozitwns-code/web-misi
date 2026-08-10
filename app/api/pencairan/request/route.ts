@@ -49,6 +49,13 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  if (!user.metode_pencairan || !user.nama_penyedia || !user.nomor_tujuan || !user.nama_pemilik) {
+    return NextResponse.json(
+      { error: "Lengkapi data pembayaran (bank/e-wallet tujuan) di halaman Dompet dulu." },
+      { status: 400 },
+    );
+  }
+
   const activeRequest = await prisma.pencairanRequest.findFirst({
     where: { user_id: userId, status: { in: ["diminta", "disetujui"] } },
   });
@@ -60,7 +67,14 @@ export async function POST(request: NextRequest) {
   }
 
   const created = await prisma.pencairanRequest.create({
-    data: { user_id: userId, jumlah },
+    data: {
+      user_id: userId,
+      jumlah,
+      metode_pencairan: user.metode_pencairan,
+      nama_penyedia: user.nama_penyedia,
+      nomor_tujuan: user.nomor_tujuan,
+      nama_pemilik: user.nama_pemilik,
+    },
   });
 
   return NextResponse.json({ ok: true, request: created });

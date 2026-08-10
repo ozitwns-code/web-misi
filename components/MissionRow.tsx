@@ -4,13 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import {
   BookOpen,
   CalendarCheck,
+  CheckDouble,
+  ClipboardList,
   ExternalLink,
   HandCoins,
   LoaderDots,
   ShareNodes,
   UsersTwo,
 } from "./icons";
-import type { MisiItem } from "./DashboardClient";
+import type { MisiItem } from "@/lib/dashboard-types";
 
 function rupiah(n: number) {
   return `Rp${n.toLocaleString("id-ID")}`;
@@ -21,6 +23,7 @@ const TIPE_ICON: Record<string, typeof BookOpen> = {
   share: ShareNodes,
   sosial: UsersTwo,
   checkin: CalendarCheck,
+  survei: ClipboardList,
 };
 
 export function MissionRow({
@@ -156,7 +159,14 @@ export function MissionRow({
             </p>
           )}
 
-          {!misi.target_url && (
+          {status === "selesai" && (
+            <div className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-teal-dark">
+              <CheckDouble className="h-3.5 w-3.5" />
+              Selesai
+            </div>
+          )}
+
+          {status !== "selesai" && !misi.target_url && (
             <button
               type="button"
               onClick={handleTandaiSelesai}
@@ -174,7 +184,7 @@ export function MissionRow({
             </div>
           )}
 
-          {misi.target_url && !showSurvei && status !== "menunggu" && (
+          {misi.target_url && !showSurvei && status !== "menunggu" && status !== "selesai" && (
             <button
               type="button"
               onClick={handleKerjakan}
