@@ -85,6 +85,19 @@ model AdminLog {
   created_at DateTime @default(now())
 }
 
+model SiteContent {
+  key        String   @id
+  value      String
+  updated_at DateTime @updatedAt
+}
+
+model SiteAsset {
+  key        String   @id
+  mime_type  String
+  data       Bytes
+  updated_at DateTime @updatedAt
+}
+
 model PencairanRequest {
   id               String    @id @default(cuid())
   user_id          String

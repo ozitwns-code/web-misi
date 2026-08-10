@@ -4,7 +4,6 @@ import {
   BookOpen,
   CheckDouble,
   ClipboardList,
-  CoffeeMark,
   HandCoins,
   ShareNodes,
   ShieldCheck,
@@ -18,6 +17,11 @@ import {
   TypingIndicator,
 } from "@/components/Bubble";
 import { FaqItem } from "@/components/FaqItem";
+import { SiteLogo } from "@/components/SiteLogo";
+import { prisma } from "@/lib/db";
+import { buildContentMap } from "@/lib/site-content";
+
+export const dynamic = "force-dynamic";
 
 const misiAwal = [
   { label: "Share link produk digital ke WA Story", nominal: 5000 },
@@ -32,24 +36,27 @@ function rupiah(n: number) {
   return `Rp${n.toLocaleString("id-ID")}`;
 }
 
-export default function Home() {
+export default async function Home() {
+  const rows = await prisma.siteContent.findMany();
+  const c = buildContentMap(rows);
+
   return (
     <>
       <header className="sticky top-0 z-30 border-b border-ink/[0.06] bg-paper/85 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-3.5">
           <a href="#top" className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-              <CoffeeMark className="h-4 w-4" />
+              <SiteLogo className="h-4 w-4 object-contain" />
             </span>
             <span className="text-[0.95rem] font-bold tracking-tight text-ink">
-              Rebahancuan
+              {c["site.brand_name"]}
             </span>
           </a>
           <Link
             href="/daftar"
             className="rounded-full bg-teal px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-teal-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-dark"
           >
-            Daftar
+            {c["header.nav_cta_label"]}
           </Link>
         </div>
       </header>
@@ -63,17 +70,13 @@ export default function Home() {
             <div className="flex flex-col items-start gap-2.5">
               <TypingIndicator delay={0} />
               <Bubble delay={900} className="motion-safe:opacity-0" time="09.41">
-                Woy, udah denger <span className="font-semibold">Rebahancuan</span>?
-                Cara beneran buat dapet uang cuma dari misi-misi ringan. 🙂
+                {c["hero.bubble_1"]}
               </Bubble>
               <Bubble delay={1500} className="motion-safe:opacity-0" time="09.41">
-                Reward-nya nggak dibatasi. Tandai misi selesai, saldo langsung
-                nambah — nggak pakai nunggu.
+                {c["hero.bubble_2"]}
               </Bubble>
               <Bubble delay={2100} className="motion-safe:opacity-0" time="09.42">
-                Sisanya dari ajak teman pakai link referral kamu, juga nggak
-                dibatasi jumlahnya. Begitu saldo nyampe Rp200.000, langsung
-                bisa dicairkan.
+                {c["hero.bubble_3"]}
               </Bubble>
               <Bubble delay={2700} className="motion-safe:opacity-0" time="09.42">
                 Td abis baca{" "}
@@ -92,16 +95,16 @@ export default function Home() {
               <div id="mulai" className="w-full scroll-mt-24 pt-1.5">
                 <PinnedBubble delay={3900}>
                   <p className="text-[1.05rem] font-bold leading-snug">
-                    Daftar sekarang, misi pertama nunggu kamu.
+                    {c["hero.pinned_title"]}
                   </p>
                   <p className="mt-1 text-sm text-teal-light/90">
-                    Gratis. Saldo langsung nambah begitu misi ditandai selesai.
+                    {c["hero.pinned_subtitle"]}
                   </p>
                   <Link
                     href="/daftar"
                     className="mt-3.5 flex w-full items-center justify-center gap-2 rounded-xl bg-paper px-4 py-2.5 text-sm font-bold text-teal-dark transition-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper active:scale-[0.98]"
                   >
-                    Daftar &amp; Mulai Misi
+                    {c["hero.cta_label"]}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </PinnedBubble>
@@ -114,11 +117,10 @@ export default function Home() {
         <section className="border-y border-ink/[0.06] bg-bubble/60 px-5 py-14">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-balance text-3xl font-extrabold leading-tight text-ink sm:text-4xl">
-              Kerjain misi ringan, reward tanpa batas langsung masuk saldo.
+              {c["summary.heading"]}
             </h1>
             <p className="mx-auto mt-4 max-w-[60ch] text-balance text-[1.05rem] leading-relaxed text-ink-soft">
-              Siapa saja boleh daftar dan langsung mulai. Begitu saldo minimal
-              Rp200.000, ajukan pencairan ke rekening atau e-wallet kamu.
+              {c["summary.subheading"]}
             </p>
           </div>
         </section>
@@ -127,11 +129,10 @@ export default function Home() {
         <section id="cara-kerja" className="scroll-mt-20 px-5 py-20">
           <div className="mx-auto max-w-2xl">
             <h2 className="text-2xl font-extrabold text-ink sm:text-3xl">
-              Jenis-jenis misi yang bisa kamu kerjain
+              {c["carakerja.heading"]}
             </h2>
             <p className="mt-3 max-w-[60ch] text-ink-soft">
-              Semuanya berputar di sekitar blog Secangkir Cerita — baca ceritanya,
-              sebarkan ke orang lain, atau ajak teman buat ikut juga.
+              {c["carakerja.intro"]}
             </p>
 
             <div className="mt-9 divide-y divide-ink/[0.08] rounded-2xl bg-bubble shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
@@ -140,11 +141,9 @@ export default function Home() {
                   <BookOpen className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="font-bold text-ink">Baca &amp; interaksi artikel</h3>
+                  <h3 className="font-bold text-ink">{c["carakerja.misi_baca_judul"]}</h3>
                   <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
-                    Baca satu tulisan di blog, tinggalkan like atau komentar,
-                    terus tandai misinya selesai. Simpel, dan kamu beneran
-                    dapet bacaan yang enak.
+                    {c["carakerja.misi_baca_deskripsi"]}
                   </p>
                 </div>
               </div>
@@ -153,10 +152,9 @@ export default function Home() {
                   <ShareNodes className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="font-bold text-ink">Share ke media sosial</h3>
+                  <h3 className="font-bold text-ink">{c["carakerja.misi_share_judul"]}</h3>
                   <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
-                    Teruskan satu artikel ke Instagram, WhatsApp, atau TikTok
-                    kamu, tandai selesai, saldo langsung nambah.
+                    {c["carakerja.misi_share_deskripsi"]}
                   </p>
                 </div>
               </div>
@@ -165,10 +163,9 @@ export default function Home() {
                   <UsersTwo className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="font-bold text-ink">Ajak teman (referral)</h3>
+                  <h3 className="font-bold text-ink">{c["carakerja.misi_referral_judul"]}</h3>
                   <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
-                    Bagikan link ajakanmu. Begitu temanmu daftar lewat link
-                    itu, kamu langsung dapet reward referral.
+                    {c["carakerja.misi_referral_deskripsi"]}
                   </p>
                 </div>
               </div>
@@ -177,12 +174,9 @@ export default function Home() {
                   <ClipboardList className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="font-bold text-ink">Isi survei singkat</h3>
+                  <h3 className="font-bold text-ink">{c["carakerja.misi_survei_judul"]}</h3>
                   <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
-                    Jawab beberapa pertanyaan singkat, lalu lanjut ke link
-                    tujuannya. Isi jawaban dengan jujur, dan kalau ada batas
-                    waktu pengisian, pastikan diselesaikan sebelum waktunya
-                    habis.
+                    {c["carakerja.misi_survei_deskripsi"]}
                   </p>
                 </div>
               </div>
@@ -194,18 +188,17 @@ export default function Home() {
         <section className="border-y border-ink/[0.06] bg-bubble/60 px-5 py-20">
           <div className="mx-auto max-w-thread">
             <h2 className="text-2xl font-extrabold text-ink sm:text-3xl">
-              Rincian reward
+              {c["reward.heading"]}
             </h2>
             <p className="mt-3 text-ink-soft">
-              Dari misi, langsung kelihatan angkanya. Dari ajak teman, terus
-              nambah — nggak ada batasnya.
+              {c["reward.intro"]}
             </p>
 
             {/* invoice-style bubble */}
             <div className="mt-7 rounded-2xl rounded-tl-sm bg-bubble px-5 py-5 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
               <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-ink">
                 <HandCoins className="h-4 w-4 text-teal-dark" />
-                Misi yang bisa langsung dikerjakan
+                {c["reward.misi_card_title"]}
               </h3>
               <ul className="space-y-2.5">
                 {misiAwal.map((misi) => (
@@ -233,16 +226,15 @@ export default function Home() {
             <div className="mt-4 rounded-2xl rounded-tl-sm bg-bubble px-5 py-5 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
               <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-ink">
                 <UsersTwo className="h-4 w-4 text-teal-dark" />
-                Ajak teman
+                {c["reward.referral_card_title"]}
               </h3>
               <p className="text-[0.92rem] leading-relaxed text-ink-soft">
-                Tiap kali ada teman daftar lewat link referral kamu, saldo
-                kamu nambah. Nggak dibatasi jumlah temannya.
+                {c["reward.referral_card_body"]}
               </p>
             </div>
 
             <div className="mt-4 flex items-center justify-between rounded-2xl bg-teal px-5 py-4 text-paper">
-              <span className="font-bold">Minimal pencairan</span>
+              <span className="font-bold">{c["reward.minimal_label"]}</span>
               <span className="text-lg font-extrabold">Rp200.000 per pengajuan</span>
             </div>
           </div>
@@ -254,34 +246,15 @@ export default function Home() {
             <div className="mb-7 flex items-center gap-2.5">
               <ShieldCheck className="h-6 w-6 text-teal-dark" />
               <h2 className="text-2xl font-extrabold text-ink sm:text-3xl">
-                Kenapa bisa dipercaya
+                {c["faq.heading"]}
               </h2>
             </div>
 
             <div className="space-y-3">
-              <FaqItem question="Ini beneran bukan penipuan?">
-                Daftar dan ngerjain misi di Rebahancuan gratis — nggak ada
-                biaya pendaftaran atau biaya tersembunyi apa pun. Semua misi
-                yang kamu selesaikan tercatat rapi di dashboard, bisa kamu
-                cek kapan aja.
-              </FaqItem>
-              <FaqItem question="Kok saldo bisa langsung nambah tanpa dicek dulu?">
-                Nandain misi selesai emang self-report — kamu yang laporin
-                sendiri. Tapi begitu kamu mau cairkan, admin yang review
-                pengajuannya satu per satu sebelum uangnya beneran dikirim,
-                jadi tetap ada pengecekan manusia di titik yang penting.
-              </FaqItem>
-              <FaqItem question="Reward-nya ditransfer ke mana?">
-                Begitu saldo kamu minimal Rp200.000, ajukan pencairan lewat
-                dashboard (jumlahnya bebas, nggak ada batas atas). Admin
-                review dulu, baru transfer manual — bank atau e-wallet,
-                bukan lewat payment gateway otomatis.
-              </FaqItem>
-              <FaqItem question="Riwayat misi saya kelihatan nggak?">
-                Kelihatan. Semua misi yang udah kamu tandai selesai tercatat
-                lengkap dengan tanggalnya di dashboard — transparan, bisa
-                kamu lihat ulang kapan pun.
-              </FaqItem>
+              <FaqItem question={c["faq.q1"]}>{c["faq.a1"]}</FaqItem>
+              <FaqItem question={c["faq.q2"]}>{c["faq.a2"]}</FaqItem>
+              <FaqItem question={c["faq.q3"]}>{c["faq.a3"]}</FaqItem>
+              <FaqItem question={c["faq.q4"]}>{c["faq.a4"]}</FaqItem>
             </div>
           </div>
         </section>
@@ -291,13 +264,13 @@ export default function Home() {
           <div className="mx-auto max-w-thread text-center">
             <PinnedBubble>
               <p className="text-[1.1rem] font-bold leading-snug">
-                Saldo langsung nambah begitu misi pertama kamu tandai selesai.
+                {c["final_cta.title"]}
               </p>
               <Link
                 href="/daftar"
                 className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-paper px-4 py-2.5 text-sm font-bold text-teal-dark transition-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper active:scale-[0.98]"
               >
-                Daftar &amp; Mulai Misi
+                {c["final_cta.button_label"]}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </PinnedBubble>
@@ -308,22 +281,11 @@ export default function Home() {
       <footer className="border-t border-ink/[0.06] px-5 py-10">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 text-center">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-            <CoffeeMark className="h-4 w-4" />
+            <SiteLogo className="h-4 w-4 object-contain" />
           </span>
-          <p className="text-sm text-ink-soft">
-            Rebahancuan berjalan bersama blog{" "}
-            <a
-              href="https://secangkircerita-id.blogspot.com"
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-teal-dark underline decoration-teal/40 underline-offset-2 hover:decoration-teal-dark"
-            >
-              Secangkir Cerita
-            </a>
-            . Pencairan reward langsung diproses ke rekening/e-wallet kamu.
-          </p>
+          <p className="text-sm text-ink-soft">{c["footer.text"]}</p>
           <p className="text-xs text-ink-soft/70">
-            © {new Date().getFullYear()} Rebahancuan. ·{" "}
+            © {new Date().getFullYear()} {c["site.brand_name"]}. ·{" "}
             <Link href="/syarat-ketentuan" className="underline decoration-ink/20 underline-offset-2 hover:decoration-ink/50">
               Syarat &amp; Ketentuan
             </Link>

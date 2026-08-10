@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import { CheckDouble, CoffeeMark, ForwardArrow, PinMark } from "./icons";
+import { CheckDouble, ForwardArrow, PinMark } from "./icons";
+import { SiteLogo } from "./SiteLogo";
 
 type BubbleProps = {
   children: ReactNode;
@@ -51,7 +52,7 @@ export function ThreadHeader() {
   return (
     <div className="mb-4 flex items-center gap-3 rounded-2xl bg-bubble/70 px-4 py-3 backdrop-blur-sm">
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber text-paper">
-        <CoffeeMark className="h-5 w-5" />
+        <SiteLogo className="h-5 w-5 object-contain" />
       </span>
       <div className="min-w-0 font-chat">
         <p className="truncate text-sm font-semibold text-ink">Secangkir Cerita</p>

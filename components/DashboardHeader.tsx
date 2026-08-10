@@ -6,12 +6,12 @@ import { useEffect, useRef, useState } from "react";
 import {
   ClipboardList,
   CloseIcon,
-  CoffeeMark,
   HouseIcon,
   MenuIcon,
   UserCircle,
   WalletIcon,
 } from "./icons";
+import { SiteLogo } from "./SiteLogo";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Home", icon: HouseIcon },
@@ -47,7 +47,7 @@ export function DashboardHeader() {
       <div className="mx-auto flex max-w-2xl items-center justify-between px-5 py-3.5">
         <Link href="/dashboard" className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-            <CoffeeMark className="h-4 w-4" />
+            <SiteLogo className="h-4 w-4 object-contain" />
           </span>
           <span className="text-[0.95rem] font-bold tracking-tight text-ink">
             Rebahancuan

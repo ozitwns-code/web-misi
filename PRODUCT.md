@@ -31,6 +31,7 @@ The mechanism is self-report on the earning side, manual human review on the pay
 - Basic anti-fraud heuristic: if 3 or more accounts have already registered from the same IP within the last 60 minutes, the next registration's referral reward is held as "pending review" (data is still recorded, but the referrer's saldo is not credited) instead of counted automatically.
 - Missions center on the Secangkir Cerita Blogspot blog: reading/interacting with articles, sharing them on social media, and inviting friends (referral).
 - The admin panel also lets the admin edit any mission's judul, deskripsi, nominal_reward, target_url (the link a self-report mission opens), and aktif status, and records every approve/reject/edit action to an activity log (`AdminLog`) visible on the same page.
+- Landing page copy (hero, footer, mission-type descriptions, FAQ, CTAs, etc.) is content-managed: stored as key/value rows in a `SiteContent` table, editable from the admin panel without a code change or redeploy. The site logo/brand mark is similarly stored as bytes in a `SiteAsset` table and swappable from the admin panel (falls back to the original coffee-mark icon if never customized).
 
 ## Capabilities and Constraints
 

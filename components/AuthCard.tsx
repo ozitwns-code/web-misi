@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import { CoffeeMark } from "./icons";
+import { SiteLogo } from "./SiteLogo";
 
 export function AuthCard({
   title,
@@ -18,7 +18,7 @@ export function AuthCard({
       <div className="w-full max-w-sm">
         <Link href="/" className="mb-6 flex items-center justify-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-            <CoffeeMark className="h-4 w-4" />
+            <SiteLogo className="h-4 w-4 object-contain" />
           </span>
           <span className="text-[0.95rem] font-bold tracking-tight text-ink">
             Rebahancuan

@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { isAdminSession } from "@/lib/admin-auth";
-import { CoffeeMark } from "@/components/icons";
+import { SiteLogo } from "@/components/SiteLogo";
 import { LogoutButton } from "@/components/LogoutButton";
 import {
   AdminDashboardClient,
@@ -10,6 +10,9 @@ import {
   type PendingReferral,
 } from "@/components/AdminDashboardClient";
 import { AdminMisiSection, type MisiAdmin } from "@/components/AdminMisiSection";
+import { AdminContentSection } from "@/components/AdminContentSection";
+import { AdminLogoSection } from "@/components/AdminLogoSection";
+import { buildContentMap } from "@/lib/site-content";
 
 export const metadata = {
   title: "Admin — Rebahancuan",
@@ -20,7 +23,7 @@ export default async function AdminPage() {
     redirect("/admin/login");
   }
 
-  const [referralLogs, pencairanDb, adminLogs, misiDb] = await Promise.all([
+  const [referralLogs, pencairanDb, adminLogs, misiDb, siteContentDb] = await Promise.all([
     prisma.referralLog.findMany({
       where: { status: "pending_review" },
       orderBy: { created_at: "asc" },
@@ -36,7 +39,10 @@ export default async function AdminPage() {
     }),
     prisma.adminLog.findMany({ orderBy: { created_at: "desc" }, take: 50 }),
     prisma.misi.findMany({ orderBy: { id: "asc" } }),
+    prisma.siteContent.findMany(),
   ]);
+
+  const contentMap = buildContentMap(siteContentDb);
 
   const misiList: MisiAdmin[] = misiDb.map((m) => ({
     id: m.id,
@@ -78,7 +84,7 @@ export default async function AdminPage() {
         <div className="mx-auto flex max-w-3xl items-center justify-between px-5 py-3.5">
           <Link href="/admin" className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-              <CoffeeMark className="h-4 w-4" />
+              <SiteLogo className="h-4 w-4 object-contain" />
             </span>
             <span className="text-[0.95rem] font-bold tracking-tight text-ink">
               Rebahancuan <span className="font-medium text-ink-soft">admin</span>
@@ -95,6 +101,10 @@ export default async function AdminPage() {
         />
 
         <AdminMisiSection misiListAwal={misiList} />
+
+        <AdminLogoSection />
+
+        <AdminContentSection contentAwal={contentMap} />
 
         <section className="mt-10">
           <h2 className="text-lg font-extrabold text-ink">Log aktivitas</h2>
