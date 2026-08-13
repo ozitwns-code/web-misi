@@ -56,7 +56,6 @@ export function ThreadHeader() {
       </span>
       <div className="min-w-0 font-chat">
         <p className="truncate text-sm font-semibold text-ink">Secangkir Cerita</p>
-        <p className="text-xs text-teal-dark">misi aktif hari ini</p>
       </div>
     </div>
   );
