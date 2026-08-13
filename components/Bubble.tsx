@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { CheckDouble, ForwardArrow, PinMark } from "./icons";
-import { SiteLogo } from "./SiteLogo";
 
 type BubbleProps = {
   children: ReactNode;
@@ -44,19 +43,6 @@ export function ForwardedTag() {
     <div className="mb-1.5 flex items-center gap-1.5 font-chat text-xs font-medium italic text-ink-soft">
       <ForwardArrow className="h-3 w-3 shrink-0" />
       Diteruskan dari Secangkir Cerita
-    </div>
-  );
-}
-
-export function ThreadHeader() {
-  return (
-    <div className="mb-4 flex items-center gap-3 rounded-2xl bg-bubble/70 px-4 py-3 backdrop-blur-sm">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber text-paper">
-        <SiteLogo className="h-5 w-5 object-cover" />
-      </span>
-      <div className="min-w-0 font-chat">
-        <p className="truncate text-sm font-semibold text-ink">Secangkir Cerita</p>
-      </div>
     </div>
   );
 }

@@ -13,7 +13,6 @@ import {
   Bubble,
   PinnedBubble,
   ReadTick,
-  ThreadHeader,
   TypingIndicator,
 } from "@/components/Bubble";
 import { FaqItem } from "@/components/FaqItem";
@@ -65,8 +64,6 @@ export default async function Home() {
         {/* HERO — chat thread */}
         <section className="px-5 pb-20 pt-12 sm:pt-16">
           <div className="mx-auto max-w-thread">
-            <ThreadHeader />
-
             <div className="flex flex-col items-start gap-2.5">
               <TypingIndicator delay={0} />
               <Bubble delay={900} className="motion-safe:opacity-0" time="09.41">
