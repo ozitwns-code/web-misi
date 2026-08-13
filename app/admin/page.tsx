@@ -14,6 +14,7 @@ import { AdminContentSection } from "@/components/AdminContentSection";
 import { AdminLogoSection } from "@/components/AdminLogoSection";
 import { AdminStatsSection, type AdminStats } from "@/components/AdminStatsSection";
 import { buildContentMap } from "@/lib/site-content";
+import { parseSurveiPertanyaan } from "@/lib/misi-constants";
 
 export const metadata = {
   title: "Admin — Rebahancuan",
@@ -84,6 +85,9 @@ export default async function AdminPage() {
     target_url: m.target_url,
     aktif: m.aktif,
     tipe: m.tipe,
+    perlu_survei: m.perlu_survei,
+    survei_pertanyaan: parseSurveiPertanyaan(m.survei_pertanyaan),
+    kuota_harian: m.kuota_harian,
   }));
 
   const pendingReferrals: PendingReferral[] = referralLogs.map((log) => ({

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { getSessionUserId } from "@/lib/auth";
 import { MisiListClient } from "@/components/MisiListClient";
 import { toMisiItem } from "@/lib/dashboard-types";
+import { buildKuotaPenuhMap } from "@/lib/misi-constants";
 
 export const metadata = {
   title: "Misi — Rebahancuan",
@@ -20,7 +21,10 @@ export default async function MisiPage() {
   ]);
 
   const progressByMisiId = new Map(progressDb.map((p) => [p.misi_id, p]));
-  const misiList = misiDb.map((misi) => toMisiItem(misi, progressByMisiId.get(misi.id)));
+  const kuotaPenuhMap = await buildKuotaPenuhMap(misiDb);
+  const misiList = misiDb.map((misi) =>
+    toMisiItem(misi, progressByMisiId.get(misi.id), kuotaPenuhMap.get(misi.id) ?? false),
+  );
 
   return <MisiListClient misiAwal={misiList} />;
 }

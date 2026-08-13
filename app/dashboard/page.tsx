@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { getSessionUserId } from "@/lib/auth";
 import { HomeClient } from "@/components/HomeClient";
 import { toMisiItem, type PencairanAktif } from "@/lib/dashboard-types";
+import { buildKuotaPenuhMap } from "@/lib/misi-constants";
 
 export const metadata = {
   title: "Dashboard — Rebahancuan",
@@ -36,7 +37,10 @@ export default async function DashboardPage() {
     : null;
 
   const progressByMisiId = new Map(progressDb.map((p) => [p.misi_id, p]));
-  const misiList = misiAktifDb.map((misi) => toMisiItem(misi, progressByMisiId.get(misi.id)));
+  const kuotaPenuhMap = await buildKuotaPenuhMap(misiAktifDb);
+  const misiList = misiAktifDb.map((misi) =>
+    toMisiItem(misi, progressByMisiId.get(misi.id), kuotaPenuhMap.get(misi.id) ?? false),
+  );
 
   return (
     <HomeClient

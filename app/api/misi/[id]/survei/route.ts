@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getSessionUserId } from "@/lib/auth";
-import { isJawabanValid, parseSurveiPertanyaan } from "@/lib/misi-constants";
+import { isJawabanValid, kuotaHarianTerpenuhi, parseSurveiPertanyaan } from "@/lib/misi-constants";
 
 export async function POST(
   request: NextRequest,
@@ -31,6 +31,13 @@ export async function POST(
   if (existing?.status === "selesai") {
     return NextResponse.json(
       { error: "Misi ini sudah kamu selesaikan sebelumnya." },
+      { status: 409 },
+    );
+  }
+
+  if (!existing && (await kuotaHarianTerpenuhi(misiId, misi.kuota_harian))) {
+    return NextResponse.json(
+      { error: "Kuota misi ini untuk hari ini sudah penuh. Coba lagi besok." },
       { status: 409 },
     );
   }

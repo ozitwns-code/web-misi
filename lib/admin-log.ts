@@ -7,6 +7,7 @@ export type AdminAksi =
   | "reject_pencairan"
   | "selesai_pencairan"
   | "edit_misi"
+  | "tambah_misi"
   | "update_content"
   | "update_logo"
   | "reset_logo";

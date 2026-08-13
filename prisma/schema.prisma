@@ -47,6 +47,7 @@ model Misi {
   target_url         String?
   perlu_survei       Boolean @default(false)
   survei_pertanyaan  String?
+  kuota_harian       Int?
 
   progress_misi ProgressMisi[]
 }
@@ -59,6 +60,7 @@ model ProgressMisi {
   jawaban_survei  String?
   tanggal_mulai   DateTime?
   tanggal_selesai DateTime?
+  created_at      DateTime  @default(now())
 
   user User @relation(fields: [user_id], references: [id])
   misi Misi @relation(fields: [misi_id], references: [id])

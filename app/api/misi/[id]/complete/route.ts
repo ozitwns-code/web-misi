@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getSessionUserId } from "@/lib/auth";
-import { MISI_MIN_DELAY_MS } from "@/lib/misi-constants";
+import { MISI_MIN_DELAY_MS, kuotaHarianTerpenuhi } from "@/lib/misi-constants";
 
 export async function POST(
   _request: Request,
@@ -44,6 +44,11 @@ export async function POST(
         { status: 400 },
       );
     }
+  } else if (!existing && (await kuotaHarianTerpenuhi(misiId, misi.kuota_harian))) {
+    return NextResponse.json(
+      { error: "Kuota misi ini untuk hari ini sudah penuh. Coba lagi besok." },
+      { status: 409 },
+    );
   }
 
   const user = await prisma.$transaction(async (tx) => {

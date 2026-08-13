@@ -135,7 +135,8 @@ export function MissionRow({
     };
   }, [status, misi.id, onSelesai]);
 
-  const showSurvei = misi.perlu_survei && status === "belum";
+  const kuotaPenuh = misi.kuota_penuh && status === "belum";
+  const showSurvei = misi.perlu_survei && status === "belum" && !kuotaPenuh;
 
   return (
     <div className="px-5 py-5">
@@ -166,7 +167,13 @@ export function MissionRow({
             </div>
           )}
 
-          {status !== "selesai" && !misi.target_url && (
+          {kuotaPenuh && (
+            <div className="mt-3 text-sm font-semibold text-ink-soft">
+              Kuota misi ini untuk hari ini sudah penuh — coba lagi besok.
+            </div>
+          )}
+
+          {status !== "selesai" && !misi.target_url && !kuotaPenuh && (
             <button
               type="button"
               onClick={handleTandaiSelesai}
@@ -184,7 +191,7 @@ export function MissionRow({
             </div>
           )}
 
-          {misi.target_url && !showSurvei && status !== "menunggu" && status !== "selesai" && (
+          {misi.target_url && !showSurvei && status !== "menunggu" && status !== "selesai" && !kuotaPenuh && (
             <button
               type="button"
               onClick={handleKerjakan}

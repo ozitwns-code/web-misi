@@ -13,6 +13,7 @@ export type MisiItem = {
   status: "belum" | "survei_selesai" | "menunggu" | "selesai";
   tanggal_mulai: string | null;
   tanggal_selesai: string | null;
+  kuota_penuh: boolean;
 };
 
 export type PencairanAktif = {
@@ -20,7 +21,11 @@ export type PencairanAktif = {
   status: "diminta" | "disetujui";
 } | null;
 
-export function toMisiItem(misi: Misi, progress: ProgressMisi | undefined): MisiItem {
+export function toMisiItem(
+  misi: Misi,
+  progress: ProgressMisi | undefined,
+  kuotaPenuh = false,
+): MisiItem {
   const status: MisiItem["status"] =
     progress?.status === "selesai"
       ? "selesai"
@@ -41,5 +46,6 @@ export function toMisiItem(misi: Misi, progress: ProgressMisi | undefined): Misi
     status,
     tanggal_mulai: progress?.tanggal_mulai?.toISOString() ?? null,
     tanggal_selesai: progress?.tanggal_selesai?.toISOString() ?? null,
+    kuota_penuh: kuotaPenuh,
   };
 }
