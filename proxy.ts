@@ -29,37 +29,52 @@ async function hasValidAdminSession(request: NextRequest) {
   }
 }
 
+const REF_COOKIE = "ref_code";
+const REF_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 hari
+
 export async function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname, searchParams } = request.nextUrl;
+  const refCode = searchParams.get("ref")?.trim();
+
+  function withRefCookie(response: NextResponse) {
+    if (refCode) {
+      response.cookies.set(REF_COOKIE, refCode, {
+        path: "/",
+        maxAge: REF_COOKIE_MAX_AGE,
+        sameSite: "lax",
+      });
+    }
+    return response;
+  }
 
   if (pathname.startsWith("/admin")) {
     const adminLoggedIn = await hasValidAdminSession(request);
     if (pathname === "/admin/login") {
       if (adminLoggedIn) {
-        return NextResponse.redirect(new URL("/admin", request.url));
+        return withRefCookie(NextResponse.redirect(new URL("/admin", request.url)));
       }
-      return NextResponse.next();
+      return withRefCookie(NextResponse.next());
     }
     if (!adminLoggedIn) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
+      return withRefCookie(NextResponse.redirect(new URL("/admin/login", request.url)));
     }
-    return NextResponse.next();
+    return withRefCookie(NextResponse.next());
   }
 
   const loggedIn = await hasValidSession(request);
 
   if (pathname.startsWith("/dashboard") && !loggedIn) {
     const loginUrl = new URL("/login", request.url);
-    return NextResponse.redirect(loginUrl);
+    return withRefCookie(NextResponse.redirect(loginUrl));
   }
 
   if ((pathname === "/login" || pathname === "/daftar") && loggedIn) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return withRefCookie(NextResponse.redirect(new URL("/dashboard", request.url)));
   }
 
-  return NextResponse.next();
+  return withRefCookie(NextResponse.next());
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/daftar", "/admin/:path*"],
+  matcher: ["/", "/dashboard/:path*", "/login", "/daftar", "/admin/:path*"],
 };

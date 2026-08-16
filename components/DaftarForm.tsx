@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { AuthCard, FormField, inputClass } from "./AuthCard";
+
+function bacaKodeReferralTersimpan(): string {
+  const match = document.cookie.match(/(?:^|; )ref_code=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : "";
+}
 
 export default function DaftarForm() {
   const router = useRouter();
@@ -14,6 +19,15 @@ export default function DaftarForm() {
   const [noWa, setNoWa] = useState("");
   const [password, setPassword] = useState("");
   const [kodeReferral, setKodeReferral] = useState(refFromUrl);
+
+  // Kalau nggak ada ?ref= di URL, coba pakai kode yang udah tersimpan dari
+  // kunjungan sebelumnya (lihat proxy.ts) — biar tetap nempel walau user
+  // sempat mampir ke halaman lain dulu sebelum daftar.
+  useEffect(() => {
+    if (refFromUrl) return;
+    const tersimpan = bacaKodeReferralTersimpan();
+    if (tersimpan) setKodeReferral(tersimpan);
+  }, [refFromUrl]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
