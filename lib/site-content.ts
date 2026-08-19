@@ -15,6 +15,7 @@ export const CONTENT_FIELDS: ContentField[] = [
   { key: "hero.bubble_1", group: "Hero — obrolan", label: "Bubble 1", multiline: true, default: "Woy, udah denger Rebahancuan? Cara beneran buat dapet uang cuma dari misi-misi ringan. 🙂" },
   { key: "hero.bubble_2", group: "Hero — obrolan", label: "Bubble 2", multiline: true, default: "Reward-nya nggak dibatasi. Tandai misi selesai, saldo langsung nambah — nggak pakai nunggu." },
   { key: "hero.bubble_3", group: "Hero — obrolan", label: "Bubble 3", multiline: true, default: "Sisanya dari ajak teman pakai link referral kamu, juga nggak dibatasi jumlahnya. Begitu saldo nyampe Rp200.000, langsung bisa dicairkan." },
+  { key: "hero.bubble_4", group: "Hero — obrolan", label: "Bubble 4", multiline: true, default: "Misinya macem-macem, dari checkin sampe isi survei kilat. Tinggal pilih yang paling gampang buat kamu." },
   { key: "hero.pinned_title", group: "Hero — obrolan", label: "Judul pesan disematkan", default: "Daftar sekarang, misi pertama nunggu kamu." },
   { key: "hero.pinned_subtitle", group: "Hero — obrolan", label: "Subjudul pesan disematkan", default: "Gratis. Saldo langsung nambah begitu misi ditandai selesai." },
   { key: "hero.cta_label", group: "Hero — obrolan", label: "Tombol CTA hero", default: "Daftar & Mulai Misi" },

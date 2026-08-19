@@ -76,17 +76,7 @@ export default async function Home() {
                 {c["hero.bubble_3"]}
               </Bubble>
               <Bubble delay={2700} className="motion-safe:opacity-0" time="09.42">
-                Td abis baca{" "}
-                <a
-                  href="https://secangkircerita-id.blogspot.com/2026/08/kenapa-ngobrol-sambil-ngopi-itu.html"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
-                >
-                  tulisan soal ngobrol sambil ngopi
-                </a>{" "}
-                di Secangkir Cerita, related banget — salah satu misinya emang
-                baca &amp; share tulisan kayak gitu.
+                {c["hero.bubble_4"]}
               </Bubble>
 
               <div id="mulai" className="w-full scroll-mt-24 pt-1.5">
