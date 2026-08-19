@@ -89,6 +89,7 @@ export default async function AdminPage() {
     survei_pertanyaan: parseSurveiPertanyaan(m.survei_pertanyaan),
     kuota_harian: m.kuota_harian,
     cta_label: m.cta_label,
+    estimasi_menit: m.estimasi_menit,
   }));
 
   const pendingReferrals: PendingReferral[] = referralLogs.map((log) => ({

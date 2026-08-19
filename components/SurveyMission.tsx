@@ -9,12 +9,15 @@ export function SurveyMission({
   hasTargetUrl,
   ctaLabel,
   onSubmitted,
+  indent = true,
 }: {
   misiId: string;
   pertanyaan: SurveiPertanyaan[];
   hasTargetUrl: boolean;
   ctaLabel: string | null;
   onSubmitted: (status: "survei_selesai" | "menunggu") => void;
+  /** false untuk dipakai di luar row bermika (mis. dalam kartu tanpa avatar ikon). */
+  indent?: boolean;
 }) {
   const total = pertanyaan.length;
   const [step, setStep] = useState(0);
@@ -95,7 +98,7 @@ export function SurveyMission({
   }
 
   return (
-    <div className="mt-4 ml-14 space-y-4">
+    <div className={`mt-4 space-y-4 ${indent ? "ml-14" : ""}`}>
       <div>
         {!ditutup && (
           <p className="mb-1.5 text-xs font-semibold text-ink-soft">

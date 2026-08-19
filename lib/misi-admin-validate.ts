@@ -13,6 +13,7 @@ export type MisiInputValid = {
   kuota_harian: number | null;
   aktif: boolean;
   cta_label: string | null;
+  estimasi_menit: number | null;
 };
 
 export function isValidUrl(value: string) {
@@ -60,6 +61,7 @@ export function validateMisiInput(
     kuota_harian,
     aktif,
     cta_label,
+    estimasi_menit,
   } = body;
 
   if (typeof judul !== "string" || judul.trim().length < 2) {
@@ -112,6 +114,14 @@ export function validateMisiInput(
     ctaLabelBersih = cta_label.trim();
   }
 
+  let estimasiMenitBersih: number | null = null;
+  if (estimasi_menit !== null && estimasi_menit !== undefined && estimasi_menit !== "") {
+    if (typeof estimasi_menit !== "number" || !Number.isInteger(estimasi_menit) || estimasi_menit <= 0) {
+      return { error: "Estimasi waktu harus angka bulat positif, atau kosongkan kalau tidak perlu." };
+    }
+    estimasiMenitBersih = estimasi_menit;
+  }
+
   return {
     data: {
       judul: judul.trim(),
@@ -124,6 +134,7 @@ export function validateMisiInput(
       kuota_harian: kuotaHarianBersih,
       aktif,
       cta_label: ctaLabelBersih,
+      estimasi_menit: estimasiMenitBersih,
     },
   };
 }

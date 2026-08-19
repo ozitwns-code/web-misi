@@ -124,6 +124,15 @@ export function CalendarCheck({ className }: IconProps) {
   );
 }
 
+export function ClockIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} {...strokeProps} stroke="currentColor">
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.5V12l3.2 2" />
+    </svg>
+  );
+}
+
 export function ArrowRight({ className }: IconProps) {
   return (
     <svg viewBox="0 0 20 16" className={className} {...strokeProps} stroke="currentColor">

@@ -49,6 +49,7 @@ model Misi {
   survei_pertanyaan  String?
   kuota_harian       Int?
   cta_label          String?
+  estimasi_menit     Int?
 
   progress_misi ProgressMisi[]
 }

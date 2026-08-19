@@ -17,6 +17,7 @@ export type MisiAdmin = {
   survei_pertanyaan: SurveiPertanyaan[];
   kuota_harian: number | null;
   cta_label: string | null;
+  estimasi_menit: number | null;
 };
 
 const TIPE_OPTIONS = [
@@ -42,6 +43,7 @@ const MISI_KOSONG = {
   survei_pertanyaan: [] as SurveiPertanyaan[],
   kuota_harian: "",
   cta_label: "",
+  estimasi_menit: "",
 };
 
 function MisiForm({
@@ -71,6 +73,7 @@ function MisiForm({
   );
   const [kuotaHarian, setKuotaHarian] = useState(awal.kuota_harian);
   const [ctaLabel, setCtaLabel] = useState(awal.cta_label);
+  const [estimasiMenit, setEstimasiMenit] = useState(awal.estimasi_menit);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -92,6 +95,7 @@ function MisiForm({
           survei_pertanyaan: perluSurvei ? surveiPertanyaan : null,
           kuota_harian: kuotaHarian.trim() === "" ? null : Number(kuotaHarian),
           cta_label: ctaLabel,
+          estimasi_menit: estimasiMenit.trim() === "" ? null : Number(estimasiMenit),
         }),
       });
       const data = await res.json();
@@ -111,6 +115,7 @@ function MisiForm({
         survei_pertanyaan: perluSurvei ? surveiPertanyaan : [],
         kuota_harian: data.misi.kuota_harian,
         cta_label: data.misi.cta_label,
+        estimasi_menit: data.misi.estimasi_menit,
       });
     } catch {
       setError("Koneksi bermasalah. Coba lagi.");
@@ -185,18 +190,33 @@ function MisiForm({
           onChange={(e) => setCtaLabel(e.target.value)}
         />
       </div>
-      <div>
-        <label className="mb-1 block text-xs font-semibold text-ink-soft">
-          Kuota harian (opsional — kosongkan untuk tanpa batas)
-        </label>
-        <input
-          className={inputClass}
-          type="number"
-          min={1}
-          placeholder="Tanpa batas"
-          value={kuotaHarian}
-          onChange={(e) => setKuotaHarian(e.target.value)}
-        />
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="mb-1 block text-xs font-semibold text-ink-soft">
+            Kuota harian (opsional — kosongkan untuk tanpa batas)
+          </label>
+          <input
+            className={inputClass}
+            type="number"
+            min={1}
+            placeholder="Tanpa batas"
+            value={kuotaHarian}
+            onChange={(e) => setKuotaHarian(e.target.value)}
+          />
+        </div>
+        <div>
+          <label className="mb-1 block text-xs font-semibold text-ink-soft">
+            Estimasi waktu, menit (opsional — isi untuk tampilan kartu survei kilat)
+          </label>
+          <input
+            className={inputClass}
+            type="number"
+            min={1}
+            placeholder="Kosongkan"
+            value={estimasiMenit}
+            onChange={(e) => setEstimasiMenit(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="flex items-center gap-4 pt-1">
@@ -312,6 +332,7 @@ export function AdminMisiSection({ misiListAwal }: { misiListAwal: MisiAdmin[] }
                 survei_pertanyaan: misi.survei_pertanyaan,
                 kuota_harian: misi.kuota_harian !== null ? String(misi.kuota_harian) : "",
                 cta_label: misi.cta_label ?? "",
+                estimasi_menit: misi.estimasi_menit !== null ? String(misi.estimasi_menit) : "",
               }}
               endpoint={`/api/admin/misi/${misi.id}`}
               method="PATCH"
@@ -331,6 +352,11 @@ export function AdminMisiSection({ misiListAwal }: { misiListAwal: MisiAdmin[] }
                   {misi.kuota_harian !== null && (
                     <span className="rounded-full bg-teal-light px-2 py-0.5 text-xs font-semibold text-teal-dark">
                       Kuota {misi.kuota_harian}/hari
+                    </span>
+                  )}
+                  {misi.estimasi_menit !== null && (
+                    <span className="rounded-full bg-ink/10 px-2 py-0.5 text-xs font-semibold text-ink-soft">
+                      Kartu survei kilat · {misi.estimasi_menit} menit
                     </span>
                   )}
                 </div>

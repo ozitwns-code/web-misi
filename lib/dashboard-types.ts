@@ -15,6 +15,7 @@ export type MisiItem = {
   tanggal_selesai: string | null;
   kuota_penuh: boolean;
   cta_label: string | null;
+  estimasi_menit: number | null;
 };
 
 export type PencairanAktif = {
@@ -49,5 +50,6 @@ export function toMisiItem(
     tanggal_selesai: progress?.tanggal_selesai?.toISOString() ?? null,
     kuota_penuh: kuotaPenuh,
     cta_label: misi.cta_label,
+    estimasi_menit: misi.estimasi_menit,
   };
 }
