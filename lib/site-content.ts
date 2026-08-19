@@ -29,8 +29,6 @@ export const CONTENT_FIELDS: ContentField[] = [
   { key: "carakerja.intro", group: "Jenis-jenis misi", label: "Intro section", multiline: true, default: "Semuanya berputar di sekitar blog Secangkir Cerita — baca ceritanya, sebarkan ke orang lain, atau ajak teman buat ikut juga." },
   { key: "carakerja.misi_baca_judul", group: "Jenis-jenis misi", label: "Judul: Baca artikel", default: "Baca & interaksi artikel" },
   { key: "carakerja.misi_baca_deskripsi", group: "Jenis-jenis misi", label: "Deskripsi: Baca artikel", multiline: true, default: "Baca satu tulisan di blog, tinggalkan like atau komentar, terus tandai misinya selesai. Simpel, dan kamu beneran dapet bacaan yang enak." },
-  { key: "carakerja.misi_share_judul", group: "Jenis-jenis misi", label: "Judul: Share sosial", default: "Share ke media sosial" },
-  { key: "carakerja.misi_share_deskripsi", group: "Jenis-jenis misi", label: "Deskripsi: Share sosial", multiline: true, default: "Teruskan satu artikel ke Instagram, WhatsApp, atau TikTok kamu, tandai selesai, saldo langsung nambah." },
   { key: "carakerja.misi_referral_judul", group: "Jenis-jenis misi", label: "Judul: Ajak teman", default: "Ajak teman (referral)" },
   { key: "carakerja.misi_referral_deskripsi", group: "Jenis-jenis misi", label: "Deskripsi: Ajak teman", multiline: true, default: "Bagikan link ajakanmu. Begitu temanmu daftar lewat link itu, kamu langsung dapet reward referral." },
   { key: "carakerja.misi_survei_judul", group: "Jenis-jenis misi", label: "Judul: Isi survei", default: "Isi survei singkat" },

@@ -3,7 +3,6 @@ import {
   ArrowRight,
   BookOpen,
   ClipboardList,
-  ShareNodes,
   ShieldCheck,
   UsersTwo,
 } from "@/components/icons";
@@ -115,17 +114,6 @@ export default async function Home() {
                   <h3 className="font-bold text-ink">{c["carakerja.misi_baca_judul"]}</h3>
                   <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
                     {c["carakerja.misi_baca_deskripsi"]}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 px-5 py-6 sm:px-7">
-                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-light text-teal-dark">
-                  <ShareNodes className="h-5 w-5" />
-                </span>
-                <div>
-                  <h3 className="font-bold text-ink">{c["carakerja.misi_share_judul"]}</h3>
-                  <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
-                    {c["carakerja.misi_share_deskripsi"]}
                   </p>
                 </div>
               </div>
