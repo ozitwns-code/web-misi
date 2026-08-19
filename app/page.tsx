@@ -158,15 +158,8 @@ export default async function Home() {
         {/* RINCIAN REWARD */}
         <section className="border-y border-ink/[0.06] bg-bubble/60 px-5 py-20">
           <div className="mx-auto max-w-thread">
-            <h2 className="text-2xl font-extrabold text-ink sm:text-3xl">
-              {c["reward.heading"]}
-            </h2>
-            <p className="mt-3 text-ink-soft">
-              {c["reward.intro"]}
-            </p>
-
             {/* referral block */}
-            <div className="mt-7 rounded-2xl rounded-tl-sm bg-bubble px-5 py-5 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
+            <div className="rounded-2xl rounded-tl-sm bg-bubble px-5 py-5 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
               <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-ink">
                 <UsersTwo className="h-4 w-4 text-teal-dark" />
                 {c["reward.referral_card_title"]}

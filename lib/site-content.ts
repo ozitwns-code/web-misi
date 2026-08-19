@@ -37,8 +37,6 @@ export const CONTENT_FIELDS: ContentField[] = [
   { key: "carakerja.misi_survei_deskripsi", group: "Jenis-jenis misi", label: "Deskripsi: Isi survei", multiline: true, default: "Jawab beberapa pertanyaan singkat, lalu lanjut ke link tujuannya. Isi jawaban dengan jujur, dan kalau ada batas waktu pengisian, pastikan diselesaikan sebelum waktunya habis." },
 
   // Rincian reward
-  { key: "reward.heading", group: "Rincian reward", label: "Judul section", default: "Rincian reward" },
-  { key: "reward.intro", group: "Rincian reward", label: "Intro section", multiline: true, default: "Dari misi, langsung kelihatan angkanya. Dari ajak teman, terus nambah — nggak ada batasnya." },
   { key: "reward.referral_card_title", group: "Rincian reward", label: "Judul kartu referral", default: "Ajak teman" },
   { key: "reward.referral_card_body", group: "Rincian reward", label: "Isi kartu referral", multiline: true, default: "Tiap kali ada teman daftar lewat link referral kamu, saldo kamu nambah. Nggak dibatasi jumlah temannya." },
   { key: "reward.minimal_label", group: "Rincian reward", label: "Label minimal pencairan", default: "Minimal pencairan" },
