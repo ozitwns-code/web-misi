@@ -17,7 +17,10 @@ export default async function DashboardPage() {
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
   if (!user) {
-    redirect("/login");
+    // Sesi JWT valid tapi user-nya udah nggak ada -> hapus cookie dulu di
+    // route handler (server component nggak boleh ubah cookie), biar nggak
+    // jadi redirect loop /login <-> /dashboard.
+    redirect("/api/auth/session-invalid");
   }
 
   const [misiAktifDb, progressDb, pencairanAktifDb] = await Promise.all([

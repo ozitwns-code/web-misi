@@ -16,7 +16,7 @@ export default async function DompetPage() {
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
   if (!user) {
-    redirect("/login");
+    redirect("/api/auth/session-invalid");
   }
 
   const [progressSelesai, pencairanAktifDb, pencairanHistoryDb] = await Promise.all([

@@ -15,7 +15,7 @@ export default async function ProfilPage() {
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
   if (!user) {
-    redirect("/login");
+    redirect("/api/auth/session-invalid");
   }
 
   const referralCount = await prisma.referralLog.count({
