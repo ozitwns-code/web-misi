@@ -1,9 +1,7 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { isAdminSession } from "@/lib/admin-auth";
-import { SiteLogo } from "@/components/SiteLogo";
-import { LogoutButton } from "@/components/LogoutButton";
+import { AdminHeader } from "@/components/AdminHeader";
 import {
   AdminDashboardClient,
   type PencairanItem,
@@ -118,19 +116,7 @@ export default async function AdminPage() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 border-b border-ink/[0.06] bg-paper/85 backdrop-blur">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-5 py-3.5">
-          <Link href="/admin" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-paper">
-              <SiteLogo className="h-4 w-4 object-cover" />
-            </span>
-            <span className="text-[0.95rem] font-bold tracking-tight text-ink">
-              Rebahancuan <span className="font-medium text-ink-soft">admin</span>
-            </span>
-          </Link>
-          <LogoutButton endpoint="/api/admin/logout" redirectTo="/admin/login" />
-        </div>
-      </header>
+      <AdminHeader />
 
       <main className="mx-auto max-w-3xl px-5 py-8">
         <AdminStatsSection stats={stats} />

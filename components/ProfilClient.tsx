@@ -12,22 +12,28 @@ function tanggalIndo(iso: string) {
   });
 }
 
+function rupiah(n: number) {
+  return `Rp${n.toLocaleString("id-ID")}`;
+}
+
 export function ProfilClient({
   nama,
   noWa,
   tanggalDaftar,
   kodeReferral,
   referralCount,
+  totalRewardReferral,
 }: {
   nama: string;
   noWa: string;
   tanggalDaftar: string;
   kodeReferral: string;
   referralCount: number;
+  totalRewardReferral: number;
 }) {
   const [referralLink, setReferralLink] = useState("");
   useEffect(() => {
-    setReferralLink(`${window.location.origin}/daftar?ref=${kodeReferral}`);
+    setReferralLink(`${window.location.origin}/ref/${kodeReferral}`);
   }, [kodeReferral]);
 
   const [copied, setCopied] = useState(false);
@@ -61,10 +67,8 @@ export function ProfilClient({
 
       {/* REFERRAL */}
       <section className="rounded-2xl bg-bubble px-5 py-5 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
-        <h2 className="text-lg font-extrabold text-ink">Ajak teman, dapat reward</h2>
-        <p className="mt-1 text-sm text-ink-soft">
-          Bagikan link ini. {referralCount} orang sudah gabung lewat kamu.
-        </p>
+        <h2 className="text-lg font-extrabold text-ink">Referral Saya</h2>
+        <p className="mt-1 text-sm text-ink-soft">Bagikan link ini buat ajak teman.</p>
 
         <div className="mt-4 flex flex-col gap-2 sm:flex-row">
           <input
@@ -80,6 +84,17 @@ export function ProfilClient({
           >
             {copied ? "Tersalin!" : "Salin link"}
           </button>
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="rounded-xl bg-paper px-4 py-3">
+            <p className="text-xl font-extrabold text-ink">{referralCount}</p>
+            <p className="text-xs text-ink-soft">Orang sudah gabung</p>
+          </div>
+          <div className="rounded-xl bg-paper px-4 py-3">
+            <p className="text-xl font-extrabold text-ink">{rupiah(totalRewardReferral)}</p>
+            <p className="text-xs text-ink-soft">Reward dari referral</p>
+          </div>
         </div>
       </section>
 

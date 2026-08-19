@@ -18,9 +18,13 @@ export default async function ProfilPage() {
     redirect("/api/auth/session-invalid");
   }
 
-  const referralCount = await prisma.referralLog.count({
-    where: { user_id_pengundang: userId },
-  });
+  const [referralCount, rewardAgg] = await Promise.all([
+    prisma.referralLog.count({ where: { user_id_pengundang: userId } }),
+    prisma.referralLog.aggregate({
+      where: { user_id_pengundang: userId, status: "approved" },
+      _sum: { nominal_didapat: true },
+    }),
+  ]);
 
   return (
     <ProfilClient
@@ -29,6 +33,7 @@ export default async function ProfilPage() {
       tanggalDaftar={user.tanggal_daftar.toISOString()}
       kodeReferral={user.kode_referral_sendiri}
       referralCount={referralCount}
+      totalRewardReferral={rewardAgg._sum.nominal_didapat ?? 0}
     />
   );
 }
