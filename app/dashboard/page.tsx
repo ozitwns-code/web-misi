@@ -23,12 +23,18 @@ export default async function DashboardPage() {
     redirect("/api/auth/session-invalid");
   }
 
-  const [misiAktifDb, progressDb, pencairanAktifDb] = await Promise.all([
+  const [misiAktifDb, progressDb, pencairanAktifDb, riwayatDb] = await Promise.all([
     prisma.misi.findMany({ where: { aktif: true }, orderBy: { id: "asc" } }),
     prisma.progressMisi.findMany({ where: { user_id: userId } }),
     prisma.pencairanRequest.findFirst({
       where: { user_id: userId, status: { in: ["diminta", "disetujui"] } },
       orderBy: { tanggal_diminta: "desc" },
+    }),
+    prisma.progressMisi.findMany({
+      where: { user_id: userId, status: "selesai" },
+      include: { misi: { select: { judul: true, nominal_reward: true } } },
+      orderBy: { tanggal_selesai: "desc" },
+      take: 8,
     }),
   ]);
 
@@ -45,12 +51,21 @@ export default async function DashboardPage() {
     toMisiItem(misi, progressByMisiId.get(misi.id), kuotaPenuhMap.get(misi.id) ?? false),
   );
 
+  const riwayatAwal = riwayatDb
+    .filter((p) => p.tanggal_selesai)
+    .map((p) => ({
+      judul: p.misi.judul,
+      nominal_reward: p.misi.nominal_reward,
+      tanggal_selesai: p.tanggal_selesai!.toISOString(),
+    }));
+
   return (
     <HomeClient
       nama={user.nama}
       saldoAwal={user.saldo_reward}
       misiAwal={misiList}
       pencairanAktif={pencairanAktif}
+      riwayatAwal={riwayatAwal}
     />
   );
 }
