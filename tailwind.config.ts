@@ -45,10 +45,15 @@ const config: Config = {
           "0%, 60%, 100%": { transform: "translateY(0)" },
           "30%": { transform: "translateY(-3px)" },
         },
+        "step-in": {
+          "0%": { opacity: "0", transform: "translateX(14px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
       },
       animation: {
         "bubble-in": "bubble-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both",
         "dot-bounce": "dot-bounce 1.1s ease-in-out infinite",
+        "step-in": "step-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
     },
   },

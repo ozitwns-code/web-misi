@@ -12,6 +12,7 @@ import {
   ShareNodes,
   UsersTwo,
 } from "./icons";
+import { SurveyMission } from "./SurveyMission";
 import type { MisiItem } from "@/lib/dashboard-types";
 
 function rupiah(n: number) {
@@ -37,32 +38,7 @@ export function MissionRow({
   const [status, setStatus] = useState(misi.status);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [jawaban, setJawaban] = useState<Record<string, string>>({});
   const attemptingRef = useRef(false);
-
-  const allAnswered = misi.survei_pertanyaan.every((q) => jawaban[q.id]);
-
-  async function handleKirimSurvei() {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch(`/api/misi/${misi.id}/survei`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ jawaban }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error ?? "Gagal mengirim survei.");
-        return;
-      }
-      setStatus("survei_selesai");
-    } catch {
-      setError("Koneksi bermasalah. Coba lagi.");
-    } finally {
-      setLoading(false);
-    }
-  }
 
   async function handleKerjakan() {
     setLoading(true);
@@ -206,59 +182,13 @@ export function MissionRow({
       </div>
 
       {showSurvei && (
-        <div className="mt-4 ml-14 space-y-4">
-          {misi.survei_pertanyaan.map((q) => (
-            <div key={q.id}>
-              <p className="mb-2 text-sm font-semibold text-ink">{q.text}</p>
-              {q.tipe === "teks" ? (
-                <input
-                  type="text"
-                  value={jawaban[q.id] ?? ""}
-                  onChange={(e) =>
-                    setJawaban((prev) => ({ ...prev, [q.id]: e.target.value }))
-                  }
-                  placeholder="Ketik jawaban kamu"
-                  className="w-full rounded-xl border border-ink/15 px-3.5 py-2 text-sm text-ink outline-none transition-colors focus:border-teal"
-                />
-              ) : (
-                <div className="space-y-1.5">
-                  {q.options.map((opt) => {
-                    const selected = jawaban[q.id] === opt;
-                    return (
-                      <button
-                        key={opt}
-                        type="button"
-                        onClick={() => setJawaban((prev) => ({ ...prev, [q.id]: opt }))}
-                        className={`block w-full rounded-xl border px-3.5 py-2 text-left text-sm transition-colors ${
-                          selected
-                            ? "border-teal bg-teal-light font-semibold text-teal-dark"
-                            : "border-ink/15 text-ink-soft hover:border-ink/30"
-                        }`}
-                      >
-                        {opt}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          ))}
-
-          {allAnswered && (
-            <p className="text-xs text-ink-soft">
-              Isi jujur, jangan sampai kehabisan waktu.
-            </p>
-          )}
-
-          <button
-            type="button"
-            onClick={handleKirimSurvei}
-            disabled={!allAnswered || loading}
-            className="rounded-full bg-teal px-4 py-1.5 text-sm font-bold text-paper transition-colors hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {loading ? "Mengirim..." : "Kirim Jawaban"}
-          </button>
-        </div>
+        <SurveyMission
+          misiId={misi.id}
+          pertanyaan={misi.survei_pertanyaan}
+          hasTargetUrl={Boolean(misi.target_url)}
+          ctaLabel={misi.cta_label}
+          onSubmitted={(nextStatus) => setStatus(nextStatus)}
+        />
       )}
     </div>
   );
