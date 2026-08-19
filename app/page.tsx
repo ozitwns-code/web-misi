@@ -24,10 +24,7 @@ export const dynamic = "force-dynamic";
 
 const misiAwal = [
   { label: "Share link produk digital ke WA Story", nominal: 5000 },
-  { label: "Follow Instagram Secangkir Cerita", nominal: 5000 },
   { label: "Checkin harian pertama", nominal: 2000 },
-  { label: "Baca & komentar artikel terbaru di blog", nominal: 10000 },
-  { label: "Follow channel WhatsApp Secangkir Cerita", nominal: 8000 },
 ];
 const misiAwalSubtotal = misiAwal.reduce((sum, m) => sum + m.nominal, 0);
 
