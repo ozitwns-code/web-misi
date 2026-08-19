@@ -47,6 +47,8 @@ export async function PATCH(
   if (misi.kuota_harian !== data.kuota_harian)
     perubahan.push(`kuota harian: ${misi.kuota_harian ?? "tanpa batas"} → ${data.kuota_harian ?? "tanpa batas"}`);
   if (misi.aktif !== data.aktif) perubahan.push(`status: ${misi.aktif ? "aktif" : "nonaktif"} → ${data.aktif ? "aktif" : "nonaktif"}`);
+  if (misi.cta_label !== data.cta_label)
+    perubahan.push(`tombol: ${misi.cta_label ?? "Kerjakan"} → ${data.cta_label ?? "Kerjakan"}`);
 
   const updated = await prisma.misi.update({
     where: { id },

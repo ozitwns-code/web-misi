@@ -15,7 +15,7 @@ export function SurveiEditor({
   onChange: (next: SurveiPertanyaan[]) => void;
 }) {
   function tambahPertanyaan() {
-    onChange([...pertanyaan, { id: idBaru(), text: "", options: ["", ""] }]);
+    onChange([...pertanyaan, { id: idBaru(), text: "", tipe: "pilihan", options: ["", ""] }]);
   }
 
   function hapusPertanyaan(index: number) {
@@ -24,6 +24,16 @@ export function SurveiEditor({
 
   function ubahTeks(index: number, text: string) {
     onChange(pertanyaan.map((q, i) => (i === index ? { ...q, text } : q)));
+  }
+
+  function ubahTipe(index: number, tipe: "pilihan" | "teks") {
+    onChange(
+      pertanyaan.map((q, i) =>
+        i === index
+          ? { ...q, tipe, options: tipe === "teks" ? [] : q.options.length >= 2 ? q.options : ["", ""] }
+          : q,
+      ),
+    );
   }
 
   function tambahOpsi(index: number) {
@@ -67,34 +77,58 @@ export function SurveiEditor({
               Hapus
             </button>
           </div>
-          <div className="ml-3 space-y-1.5">
-            {q.options.map((opt, optionIndex) => (
-              <div key={optionIndex} className="flex items-center gap-2">
-                <input
-                  className={`${inputClass} py-1.5`}
-                  placeholder={`Opsi ${optionIndex + 1}`}
-                  value={opt}
-                  onChange={(e) => ubahOpsi(index, optionIndex, e.target.value)}
-                />
-                {q.options.length > 2 && (
-                  <button
-                    type="button"
-                    onClick={() => hapusOpsi(index, optionIndex)}
-                    className="shrink-0 text-xs font-bold text-ink-soft hover:text-ink"
-                  >
-                    Hapus
-                  </button>
-                )}
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={() => tambahOpsi(index)}
-              className="text-xs font-bold text-teal-dark"
-            >
-              + Tambah opsi
-            </button>
+          <div className="flex items-center gap-3 text-xs font-semibold text-ink-soft">
+            <label className="flex items-center gap-1.5">
+              <input
+                type="radio"
+                name={`tipe-${q.id}`}
+                checked={(q.tipe ?? "pilihan") === "pilihan"}
+                onChange={() => ubahTipe(index, "pilihan")}
+                className="accent-teal"
+              />
+              Pilihan ganda
+            </label>
+            <label className="flex items-center gap-1.5">
+              <input
+                type="radio"
+                name={`tipe-${q.id}`}
+                checked={q.tipe === "teks"}
+                onChange={() => ubahTipe(index, "teks")}
+                className="accent-teal"
+              />
+              Isian teks bebas
+            </label>
           </div>
+          {(q.tipe ?? "pilihan") === "pilihan" && (
+            <div className="ml-3 space-y-1.5">
+              {q.options.map((opt, optionIndex) => (
+                <div key={optionIndex} className="flex items-center gap-2">
+                  <input
+                    className={`${inputClass} py-1.5`}
+                    placeholder={`Opsi ${optionIndex + 1}`}
+                    value={opt}
+                    onChange={(e) => ubahOpsi(index, optionIndex, e.target.value)}
+                  />
+                  {q.options.length > 2 && (
+                    <button
+                      type="button"
+                      onClick={() => hapusOpsi(index, optionIndex)}
+                      className="shrink-0 text-xs font-bold text-ink-soft hover:text-ink"
+                    >
+                      Hapus
+                    </button>
+                  )}
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => tambahOpsi(index)}
+                className="text-xs font-bold text-teal-dark"
+              >
+                + Tambah opsi
+              </button>
+            </div>
+          )}
         </div>
       ))}
       <button

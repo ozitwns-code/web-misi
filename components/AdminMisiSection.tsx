@@ -16,6 +16,7 @@ export type MisiAdmin = {
   perlu_survei: boolean;
   survei_pertanyaan: SurveiPertanyaan[];
   kuota_harian: number | null;
+  cta_label: string | null;
 };
 
 const TIPE_OPTIONS = [
@@ -40,6 +41,7 @@ const MISI_KOSONG = {
   perlu_survei: false,
   survei_pertanyaan: [] as SurveiPertanyaan[],
   kuota_harian: "",
+  cta_label: "",
 };
 
 function MisiForm({
@@ -68,6 +70,7 @@ function MisiForm({
       : [{ id: "q1", text: "", options: ["", ""] }],
   );
   const [kuotaHarian, setKuotaHarian] = useState(awal.kuota_harian);
+  const [ctaLabel, setCtaLabel] = useState(awal.cta_label);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -88,6 +91,7 @@ function MisiForm({
           perlu_survei: perluSurvei,
           survei_pertanyaan: perluSurvei ? surveiPertanyaan : null,
           kuota_harian: kuotaHarian.trim() === "" ? null : Number(kuotaHarian),
+          cta_label: ctaLabel,
         }),
       });
       const data = await res.json();
@@ -106,6 +110,7 @@ function MisiForm({
         perlu_survei: data.misi.perlu_survei,
         survei_pertanyaan: perluSurvei ? surveiPertanyaan : [],
         kuota_harian: data.misi.kuota_harian,
+        cta_label: data.misi.cta_label,
       });
     } catch {
       setError("Koneksi bermasalah. Coba lagi.");
@@ -166,6 +171,18 @@ function MisiForm({
           placeholder="https://..."
           value={targetUrl}
           onChange={(e) => setTargetUrl(e.target.value)}
+        />
+      </div>
+      <div>
+        <label className="mb-1 block text-xs font-semibold text-ink-soft">
+          Label tombol buka link (opsional — kosongkan untuk pakai "Kerjakan")
+        </label>
+        <input
+          className={inputClass}
+          type="text"
+          placeholder="Kerjakan"
+          value={ctaLabel}
+          onChange={(e) => setCtaLabel(e.target.value)}
         />
       </div>
       <div>
@@ -294,6 +311,7 @@ export function AdminMisiSection({ misiListAwal }: { misiListAwal: MisiAdmin[] }
                 perlu_survei: misi.perlu_survei,
                 survei_pertanyaan: misi.survei_pertanyaan,
                 kuota_harian: misi.kuota_harian !== null ? String(misi.kuota_harian) : "",
+                cta_label: misi.cta_label ?? "",
               }}
               endpoint={`/api/admin/misi/${misi.id}`}
               method="PATCH"

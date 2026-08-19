@@ -50,6 +50,8 @@ export async function buildKuotaPenuhMap(
 export type SurveiPertanyaan = {
   id: string;
   text: string;
+  /** "pilihan" (default, tombol opsi) atau "teks" (isian bebas). */
+  tipe?: "pilihan" | "teks";
   options: string[];
 };
 
@@ -71,6 +73,8 @@ export function isJawabanValid(
   const record = jawaban as Record<string, unknown>;
   return pertanyaan.every((q) => {
     const val = record[q.id];
-    return typeof val === "string" && q.options.includes(val);
+    if (typeof val !== "string" || val.trim().length === 0) return false;
+    if (q.tipe === "teks") return true;
+    return q.options.includes(val);
   });
 }

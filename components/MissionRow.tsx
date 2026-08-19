@@ -198,7 +198,7 @@ export function MissionRow({
               disabled={loading}
               className="mt-3 flex items-center gap-1.5 rounded-full bg-teal px-4 py-1.5 text-sm font-bold text-paper transition-colors hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {loading ? "Membuka..." : "Kerjakan"}
+              {loading ? "Membuka..." : (misi.cta_label || "Kerjakan")}
               <ExternalLink className="h-3.5 w-3.5" />
             </button>
           )}
@@ -210,27 +210,45 @@ export function MissionRow({
           {misi.survei_pertanyaan.map((q) => (
             <div key={q.id}>
               <p className="mb-2 text-sm font-semibold text-ink">{q.text}</p>
-              <div className="space-y-1.5">
-                {q.options.map((opt) => {
-                  const selected = jawaban[q.id] === opt;
-                  return (
-                    <button
-                      key={opt}
-                      type="button"
-                      onClick={() => setJawaban((prev) => ({ ...prev, [q.id]: opt }))}
-                      className={`block w-full rounded-xl border px-3.5 py-2 text-left text-sm transition-colors ${
-                        selected
-                          ? "border-teal bg-teal-light font-semibold text-teal-dark"
-                          : "border-ink/15 text-ink-soft hover:border-ink/30"
-                      }`}
-                    >
-                      {opt}
-                    </button>
-                  );
-                })}
-              </div>
+              {q.tipe === "teks" ? (
+                <input
+                  type="text"
+                  value={jawaban[q.id] ?? ""}
+                  onChange={(e) =>
+                    setJawaban((prev) => ({ ...prev, [q.id]: e.target.value }))
+                  }
+                  placeholder="Ketik jawaban kamu"
+                  className="w-full rounded-xl border border-ink/15 px-3.5 py-2 text-sm text-ink outline-none transition-colors focus:border-teal"
+                />
+              ) : (
+                <div className="space-y-1.5">
+                  {q.options.map((opt) => {
+                    const selected = jawaban[q.id] === opt;
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => setJawaban((prev) => ({ ...prev, [q.id]: opt }))}
+                        className={`block w-full rounded-xl border px-3.5 py-2 text-left text-sm transition-colors ${
+                          selected
+                            ? "border-teal bg-teal-light font-semibold text-teal-dark"
+                            : "border-ink/15 text-ink-soft hover:border-ink/30"
+                        }`}
+                      >
+                        {opt}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           ))}
+
+          {allAnswered && (
+            <p className="text-xs text-ink-soft">
+              Isi jujur, jangan sampai kehabisan waktu.
+            </p>
+          )}
 
           <button
             type="button"

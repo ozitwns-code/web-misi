@@ -12,6 +12,7 @@ export type MisiInputValid = {
   survei_pertanyaan: string | null;
   kuota_harian: number | null;
   aktif: boolean;
+  cta_label: string | null;
 };
 
 export function isValidUrl(value: string) {
@@ -28,13 +29,18 @@ function validatePertanyaan(raw: unknown): SurveiPertanyaan[] | null {
   const hasil: SurveiPertanyaan[] = [];
   for (const q of raw) {
     if (typeof q !== "object" || q === null) return null;
-    const { id, text, options } = q as Record<string, unknown>;
+    const { id, text, options, tipe } = q as Record<string, unknown>;
     if (typeof id !== "string" || id.trim().length === 0) return null;
     if (typeof text !== "string" || text.trim().length === 0) return null;
+    const tipeBersih = tipe === "teks" ? "teks" : "pilihan";
+    if (tipeBersih === "teks") {
+      hasil.push({ id: id.trim(), text: text.trim(), tipe: "teks", options: [] });
+      continue;
+    }
     if (!Array.isArray(options) || options.length < 2) return null;
     const optionsBersih = options.map((o) => (typeof o === "string" ? o.trim() : ""));
     if (optionsBersih.some((o) => o.length === 0)) return null;
-    hasil.push({ id: id.trim(), text: text.trim(), options: optionsBersih });
+    hasil.push({ id: id.trim(), text: text.trim(), tipe: "pilihan", options: optionsBersih });
   }
   return hasil;
 }
@@ -43,8 +49,18 @@ function validatePertanyaan(raw: unknown): SurveiPertanyaan[] | null {
 export function validateMisiInput(
   body: Record<string, unknown>,
 ): { error: string } | { data: MisiInputValid } {
-  const { judul, deskripsi, nominal_reward, tipe, target_url, perlu_survei, survei_pertanyaan, kuota_harian, aktif } =
-    body;
+  const {
+    judul,
+    deskripsi,
+    nominal_reward,
+    tipe,
+    target_url,
+    perlu_survei,
+    survei_pertanyaan,
+    kuota_harian,
+    aktif,
+    cta_label,
+  } = body;
 
   if (typeof judul !== "string" || judul.trim().length < 2) {
     return { error: "Judul minimal 2 karakter." };
@@ -91,6 +107,11 @@ export function validateMisiInput(
     kuotaHarianBersih = kuota_harian;
   }
 
+  let ctaLabelBersih: string | null = null;
+  if (typeof cta_label === "string" && cta_label.trim().length > 0) {
+    ctaLabelBersih = cta_label.trim();
+  }
+
   return {
     data: {
       judul: judul.trim(),
@@ -102,6 +123,7 @@ export function validateMisiInput(
       survei_pertanyaan: surveiPertanyaanBersih,
       kuota_harian: kuotaHarianBersih,
       aktif,
+      cta_label: ctaLabelBersih,
     },
   };
 }
