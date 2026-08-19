@@ -111,8 +111,12 @@ export function MissionCard({
         {badge}
       </span>
 
-      <h3 className="mt-3 font-bold text-ink">{misi.judul}</h3>
-      <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">{misi.deskripsi}</p>
+      {!misi.perlu_survei && (
+        <>
+          <h3 className="mt-3 font-bold text-ink">{misi.judul}</h3>
+          <p className="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">{misi.deskripsi}</p>
+        </>
+      )}
 
       {error && (
         <p role="alert" className="mt-2 text-sm font-medium text-[#B34434]">
