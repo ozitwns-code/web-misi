@@ -39,7 +39,6 @@ export const CONTENT_FIELDS: ContentField[] = [
   // Rincian reward
   { key: "reward.heading", group: "Rincian reward", label: "Judul section", default: "Rincian reward" },
   { key: "reward.intro", group: "Rincian reward", label: "Intro section", multiline: true, default: "Dari misi, langsung kelihatan angkanya. Dari ajak teman, terus nambah — nggak ada batasnya." },
-  { key: "reward.misi_card_title", group: "Rincian reward", label: "Judul kartu misi", default: "Misi yang bisa langsung dikerjakan" },
   { key: "reward.referral_card_title", group: "Rincian reward", label: "Judul kartu referral", default: "Ajak teman" },
   { key: "reward.referral_card_body", group: "Rincian reward", label: "Isi kartu referral", multiline: true, default: "Tiap kali ada teman daftar lewat link referral kamu, saldo kamu nambah. Nggak dibatasi jumlah temannya." },
   { key: "reward.minimal_label", group: "Rincian reward", label: "Label minimal pencairan", default: "Minimal pencairan" },

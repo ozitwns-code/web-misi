@@ -2,9 +2,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
-  CheckDouble,
   ClipboardList,
-  HandCoins,
   ShareNodes,
   ShieldCheck,
   UsersTwo,
@@ -12,7 +10,6 @@ import {
 import {
   Bubble,
   PinnedBubble,
-  ReadTick,
   TypingIndicator,
 } from "@/components/Bubble";
 import { FaqItem } from "@/components/FaqItem";
@@ -21,16 +18,6 @@ import { prisma } from "@/lib/db";
 import { buildContentMap } from "@/lib/site-content";
 
 export const dynamic = "force-dynamic";
-
-const misiAwal = [
-  { label: "Share link produk digital ke WA Story", nominal: 5000 },
-  { label: "Checkin harian pertama", nominal: 2000 },
-];
-const misiAwalSubtotal = misiAwal.reduce((sum, m) => sum + m.nominal, 0);
-
-function rupiah(n: number) {
-  return `Rp${n.toLocaleString("id-ID")}`;
-}
 
 export default async function Home() {
   const rows = await prisma.siteContent.findMany();
@@ -178,36 +165,8 @@ export default async function Home() {
               {c["reward.intro"]}
             </p>
 
-            {/* invoice-style bubble */}
-            <div className="mt-7 rounded-2xl rounded-tl-sm bg-bubble px-5 py-5 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
-              <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-ink">
-                <HandCoins className="h-4 w-4 text-teal-dark" />
-                {c["reward.misi_card_title"]}
-              </h3>
-              <ul className="space-y-2.5">
-                {misiAwal.map((misi) => (
-                  <li
-                    key={misi.label}
-                    className="flex items-baseline justify-between gap-3 text-[0.92rem]"
-                  >
-                    <span className="flex items-center gap-2 text-ink">
-                      <ReadTick />
-                      {misi.label}
-                    </span>
-                    <span className="whitespace-nowrap font-semibold text-ink">
-                      {rupiah(misi.nominal)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex items-center justify-between border-t border-dashed border-ink/15 pt-3.5 text-sm font-bold text-ink">
-                <span>Subtotal misi</span>
-                <span>{rupiah(misiAwalSubtotal)}</span>
-              </div>
-            </div>
-
             {/* referral block */}
-            <div className="mt-4 rounded-2xl rounded-tl-sm bg-bubble px-5 py-5 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
+            <div className="mt-7 rounded-2xl rounded-tl-sm bg-bubble px-5 py-5 shadow-[0_1px_0_rgba(36,28,21,0.06),0_20px_40px_-30px_rgba(36,28,21,0.4)]">
               <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-ink">
                 <UsersTwo className="h-4 w-4 text-teal-dark" />
                 {c["reward.referral_card_title"]}
